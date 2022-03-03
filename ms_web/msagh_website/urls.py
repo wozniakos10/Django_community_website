@@ -4,5 +4,6 @@ from . import views
 app_name = "msagh_website"
 
 urlpatterns = [
-    path('',views.base,name='base_html'),
+    path('',views.base,name='base'),
+    path('spotted/', views.spotted, name='spotted')
 ]
