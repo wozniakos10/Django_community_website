@@ -5,5 +5,6 @@ app_name = "msagh_website"
 
 urlpatterns = [
     path('',views.base,name='base'),
-    path('spotted/', views.spotted, name='spotted')
+    path('spotted/', views.spotted, name='spotted'),
+    path('login/',views.login,name='login')
 ]
