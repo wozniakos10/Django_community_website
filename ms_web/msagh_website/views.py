@@ -8,5 +8,3 @@ def base(request):
 def spotted(request):
     return render(request, 'msagh_website/spotted.html')
 
-def login(request):
-    return render(request,'msagh_website/login.html')
