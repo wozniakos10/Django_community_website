@@ -20,4 +20,4 @@ def register(response):
 
 def logoutUser(request):
     logout(request)
-    return redirect('/')
+    return render(request,'members/logout.html')
