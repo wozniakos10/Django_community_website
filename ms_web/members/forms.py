@@ -21,7 +21,9 @@ class RegisterForm(UserCreationForm):
                                 error_messages={
                                     'password_mismatch': "The two password fields didn't match.",
                                 },
-                                help_text="Password must contain at least 8 characters."
+                                help_text="Password must contain at least 8 characters.",
+                                help_text_color = "white"
+
                                 )
     password2 = forms.CharField(label="Password confirmation",
                                 widget=forms.PasswordInput(attrs={'style': 'max-width: 18em'}),
