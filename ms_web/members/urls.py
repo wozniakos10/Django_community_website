@@ -5,4 +5,5 @@ app_name = "members"
 
 urlpatterns = [
     path('',views.register,name='register'),
+    path('logout/',views.logoutUser,name='logout'),
 ]

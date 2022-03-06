@@ -39,15 +39,27 @@
             W BUDOWIE
           </a>
 
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             <li><a class="dropdown-item" href="#">Action</a></li>
             <li><a class="dropdown-item" href="#">Another action</a></li>
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="#">Something else here</a></li>
           </ul>
         </li>
+
+        </li>
+
       </ul>
+
+        {% if user.is_authenticated %}
+        <a href="{% url 'members:logout' %}" class="btn btn-dark" role="button">Wyloguj</a>
+            {% else %}
+            <a href="/login/" class="btn btn-dark" role="button">Zaloguj sie</a>
+
+        {% endif %}
+
     </div>
+
   </div>
 </nav>
 {%block content%}
