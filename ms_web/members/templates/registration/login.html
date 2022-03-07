@@ -2,18 +2,56 @@
 
 {%block content%}
 
+<style>
+
+
+body  {
+background-image: url('https://fabrykaneonow.pl/wp-content/uploads/154783622_727559708123748_3054599394795553090_n-1200x900.jpg');
+}
+
+
+.form-group {
+margin: auto;
+width: 60%;
+    text-align: center;
+    user-input: center;
+padding: 8px;
+
+
+}
+
+.requiredField{
+    color: #00d7ff;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+#id_username{
+    display: table;
+    margin: 0 auto;
+    border: 1px solid black;
+}
+
+#id_password{
+    display: table;
+    margin: 0 auto;
+    border: 1px solid black;
+}
+
+button{
+    /*Change the width as much as you like, but make sure
+    margin-left and margin-right + width = 100%*/
+       display: table;
+    margin: 0 auto;
+    border: 1px solid black;
+}
+
+</style>
 
 <body>
 
-<style>
-.from-group {
-  max-width: 400px;
-    text-align: center;
-}
-</style>
-
 {% load crispy_forms_tags %}
-<form method="post" class="from-group">
+<form method="post" class="form-group">
   {% csrf_token %}
   <div class="form-group col-md-6 mb-0">
         {{ form.username|as_crispy_field }}
@@ -21,7 +59,9 @@
     <div class="form-group col-md-6 mb-0">
         {{ form.password|as_crispy_field }}
       </div>
-    <p>Register here <a href="/members">here</a></p>
+    <span style=" color: #ffffff; font-weight: bold; ">
+    <p>Register <a href="/members">here</a></p>
+        </span>
   <button type="submit" class="btn btn-success">Login</button>
 
 </form>
