@@ -1,8 +1,28 @@
 {% extends "base.html"%}
 
 {%block content%}
+<style>
+  .cosik {
+    /*align: right;*/
+    /*text-align: right;*/
+    position: relative;
+    right: 410px;
+    top: 40px;
+
+}
+
+</style>
+
 <h1></h1>
-<h1 class="mb-3" align="center">Najnowsze spoty</h1>
+<h1 class="mb-3" align="center">Najnowsze spoty
+
+  <div class="cosik">
+<!--  <button type="button" class="btn btn-dark">Dodaj nowy spot</button>-->
+    <a href="{% url 'msagh_website:new_spot' %}" class="btn btn-dark" role="button">Dodaj nowy spot</a>
+</div>
+</h1>
+
+
 <link href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet">
 <div class="container"  bgcolor=”#802003" align="center" >
       <div>
