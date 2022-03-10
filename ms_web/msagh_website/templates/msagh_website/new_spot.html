@@ -1,58 +1,72 @@
 {% extends "base.html"%}
 
 {%block content%}
-<style>
-  .require {
-    color: #666;
-}
-label small {
-    color: #999;
-    font-weight: normal;
-}
+<!--<style>-->
+<!--  .require {-->
+<!--    color: #666;-->
+<!--}-->
+<!--label small {-->
+<!--    color: #999;-->
+<!--    font-weight: normal;-->
+<!--}-->
 
-</style>
+<!--</style>-->
 
-<div class="container">
-	<div class="row">
+<!--<div class="container">-->
+<!--	<div class="row">-->
 
-	    <div class="col-md-8 col-md-offset-2">
-  <h1>
+<!--	    <div class="col-md-8 col-md-offset-2">-->
+<!--  <h1>-->
 
 
 
-                </h1>
-    <h1>
+<!--                </h1>-->
+<!--    <h1>-->
 
-    </h1>
-    		<h1>Dodaj nowy spot</h1>
+<!--    </h1>-->
+<!--    		<h1>Dodaj nowy spot</h1>-->
 
-    		<form action="" method="POST">
+<!--    		<form action="" method="POST">-->
 
-    		    <div class="form-group">
-    		        <label for="title">Tytuł <span class="require"></span></label>
-    		        <input type="text" class="form-control" name="title" />
-    		    </div>
+<!--    		    <div class="form-group">-->
+<!--    		        <label for="title">Tytuł <span class="require"></span></label>-->
+<!--    		        <input type="text" class="form-control" name="title" />-->
+<!--    		    </div>-->
 
-    		    <div class="form-group">
-    		        <label for="description">Treść spota</label>
-    		        <textarea rows="5" class="form-control" name="description" ></textarea>
-    		    </div>
-                <h1>
+<!--    		    <div class="form-group">-->
+<!--    		        <label for="description">Treść spota</label>-->
+<!--    		        <textarea rows="5" class="form-control" name="description" ></textarea>-->
+<!--    		    </div>-->
+<!--                <h1>-->
 
-                </h1>
+<!--                </h1>-->
 
-    		    <div class="form-group">
-    		        <button type="submit" class="btn btn-primary">
-    		            Opublikuj
-    		        </button>
-    		        <button class="btn btn-default">
-    		            Anuluj
-    		        </button>
-    		    </div>
+<!--    		    <div class="form-group">-->
+<!--    		        <button type="submit" class="btn btn-primary">-->
+<!--    		            Opublikuj-->
+<!--    		        </button>-->
+<!--    		        <button class="btn btn-default">-->
+<!--    		            Anuluj-->
+<!--    		        </button>-->
+<!--    		    </div>-->
 
-    		</form>
-		</div>
+<!--    		</form>-->
+<!--		</div>-->
 
-	</div>
-</div>
+<!--	</div>-->
+<!--</div>-->
+
+    <h1>Form</h1>
+    <form method="POST">
+        <!-- https://docs.djangoproject.com/en/4.0/topics/forms/#looping-over-the-form-s-fields -->
+        {% csrf_token %}
+            {% for field in form %}
+            <div class='myform'>
+                {{ field }}
+            </div>
+
+            {% endfor %}
+        <input type="submit">
+    </form>
+
 {%endblock content%}
