@@ -1,5 +1,58 @@
 {% extends "base.html"%}
 
 {%block content%}
-TUTAJ FORMULARZ NA NOWY SPOT
+<style>
+  .require {
+    color: #666;
+}
+label small {
+    color: #999;
+    font-weight: normal;
+}
+
+</style>
+
+<div class="container">
+	<div class="row">
+
+	    <div class="col-md-8 col-md-offset-2">
+  <h1>
+
+
+
+                </h1>
+    <h1>
+
+    </h1>
+    		<h1>Dodaj nowy spot</h1>
+
+    		<form action="" method="POST">
+
+    		    <div class="form-group">
+    		        <label for="title">Tytuł <span class="require"></span></label>
+    		        <input type="text" class="form-control" name="title" />
+    		    </div>
+
+    		    <div class="form-group">
+    		        <label for="description">Treść spota</label>
+    		        <textarea rows="5" class="form-control" name="description" ></textarea>
+    		    </div>
+                <h1>
+
+                </h1>
+
+    		    <div class="form-group">
+    		        <button type="submit" class="btn btn-primary">
+    		            Opublikuj
+    		        </button>
+    		        <button class="btn btn-default">
+    		            Anuluj
+    		        </button>
+    		    </div>
+
+    		</form>
+		</div>
+
+	</div>
+</div>
 {%endblock content%}
