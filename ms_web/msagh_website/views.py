@@ -1,16 +1,26 @@
 from django.shortcuts import render, redirect, reverse
 from django.contrib.auth.decorators import login_required
 from .forms import SpotForm
+from .models import Spot
+from django.core.paginator import Paginator
 # Create your views here.
 
 def base(request):
     return render(request, 'base.html')
 
 def spotted(request):
-    return render(request, 'msagh_website/spotted.html')
+    posts_list = Spot.objects.all().order_by('-pub_date')
+
+    #Set up Paginator
+    p = Paginator(posts_list,4)
+    page = request.GET.get('page')
+    posts = p.get_page(page)
+
+    return render(request, 'msagh_website/spotted.html',{'posts': posts})
 
 @login_required(login_url='/login')
 def new_spot(request):
+
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:
         form = SpotForm(request.POST)

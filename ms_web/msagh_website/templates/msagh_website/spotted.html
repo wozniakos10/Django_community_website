@@ -33,17 +33,19 @@
             <div class="col-lg-6 mb-3 mb-sm-0">
             </div>
           </div>
-          <!-- End of post 1 -->
-          <div class="card row-hover pos-relative py-3 px-3 mb-3 border-warning border-top-3 border-right-3 border-bottom-3 rounded-10 width-4" align="left" border-="red" >
+
+    {% for post in posts %}
+        {% if post.admin_aproved %}
+    <div class="card row-hover pos-relative py-3 px-3 mb-3 border-warning border-top-3 border-right-3 border-bottom-3 rounded-10 width-4" align="left" border-="red" >
             <div class="row align-items-center">
               <div class="col-md-8 mb-3 mb-sm-0">
                 <h5>
                   <div>
-                    <h8>Dupaadsssssssssssdassssssssssssssssss</h8>
+                    <h8>{{ post.title }}</h8>
                   </div>
                 </h5>
-                <p class="text-sm"><span class="op-6">Posted</span> 20 minutes</a> ago by KenyeW</a></p>
-                <h8>dassssssssssssssssssssssssdasssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss</h8>
+                <p class="text-sm"><span class="op-6">Dodane</span> {{ post.pub_date }}</a> przez {{ post.user }}</a></p>
+                <h8>{{ post.content }}</h8>
 
               </div>
               <div class="col-md-4 op-7">
@@ -55,30 +57,51 @@
               </div>
             </div>
           </div>
-          <!-- /End of post 1 -->
-          <!-- End of post 2 -->
-          <div class="card row-hover pos-relative py-3 px-3 mb-3 border-warning border-top-3 border-right-3 border-bottom-3 rounded-10 width-4" align="left" border-="red" >
-            <div class="row align-items-center">
-              <div class="col-md-8 mb-3 mb-sm-0">
-                <h5>
-                  <div>
-                    <h8>Dupaadsssssssssssdassssssssssssssssss</h8>
-                  </div>
-                </h5>
-                <p class="text-sm"><span class="op-6">Posted</span> 20 minutes</a> ago by KenyeW</a></p>
-                <h8>dassssssssssssssssssssssssdasssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss</h8>
-
-              </div>
-              <div class="col-md-4 op-7">
-                <div class="row text-center op-7">
-                  <div class="col px-1"> <i class="ion-connection-bars icon-1x"></i> <span class="d-block text-sm">141 Votes</span> </div>
-
-                  <div class="col px-1"> <i class="ion-ios-eye-outline icon-1x"></i> <span class="d-block text-sm">290 Views</span> </div>
-                </div>
-              </div>
-            </div>
-          </div>
+        {% endif %}
+    {% endfor %}
           <!-- /End of post 2 -->
           <!-- End of post 3 -->
+
+
+
+
+    <nav aria-label="Page navigation example">
+  <ul class="pagination justify-content-center">
+    {% if posts.has_previous %}
+      <li class="page-item ">
+      <a class="page-link" href="?page={{ posts.previous_page_number }}">Poprzedni</a>
+       <li class="page-item disabled"><a class="page-link" href="?page={{ posts.number }}"> ... </a></li>
+    <li class="page-item "><a class="page-link" href="?page={{ posts.previous_page_number }}">{{ posts.previous_page_number }}</a></li>
+      </li>
+        {% else %}
+        <li class="page-item disabled ">
+      <a class="page-link" href="">Poprzedni</a>
+        </li>
+    {% endif %}
+
+
+    <li class="page-item active ">
+        <a class="page-link" href="?page={{ posts.number }}">{{ posts.number }}<span class="sr-only"></span></a>
+    </li>
+
+
+
+    {% if posts.has_next %}
+      <li class="page-item ">
+      <li class="page-item "><a class="page-link" href="?page={{ posts.next_page_number }}">{{ posts.next_page_number }}</a></li>
+    <li class="page-item disabled"><a class="page-link" href="?page={{ posts.number }}"> ... </a></li>
+      <a class="page-link" href="?page={{ posts.next_page_number }}">Kolejny</a>
+      </li>
+        {% else %}
+        <li class="page-item disabled ">
+      <a class="page-link" href="">Kolejny</a>
+        </li>
+    {% endif %}
+
+
+</nav>
+
+
+
 
 {%endblock content%}

@@ -1,72 +1,72 @@
 {% extends "base.html"%}
 
 {%block content%}
-<!--<style>-->
-<!--  .require {-->
-<!--    color: #666;-->
-<!--}-->
-<!--label small {-->
-<!--    color: #999;-->
-<!--    font-weight: normal;-->
-<!--}-->
 
-<!--</style>-->
-
-<!--<div class="container">-->
-<!--	<div class="row">-->
-
-<!--	    <div class="col-md-8 col-md-offset-2">-->
-<!--  <h1>-->
+    <style>
 
 
+        input{
 
-<!--                </h1>-->
-<!--    <h1>-->
+        outline: none !important;
+        border-color: #719ECE;
+        box-shadow: 0 0 10px #719ECE;
 
-<!--    </h1>-->
-<!--    		<h1>Dodaj nowy spot</h1>-->
+    }
+                                                                    {#Adding pretty shadow to title and content area#}
 
-<!--    		<form action="" method="POST">-->
+       textarea {
+        outline: none !important;
+        border-color: #719ECE;
+        box-shadow: 0 0 10px #719ECE;
+           border:1px solid red;
+           outline-color: #000000;
+           margin-bottom: 20px;
+    }
 
-<!--    		    <div class="form-group">-->
-<!--    		        <label for="title">Tytuł <span class="require"></span></label>-->
-<!--    		        <input type="text" class="form-control" name="title" />-->
-<!--    		    </div>-->
 
-<!--    		    <div class="form-group">-->
-<!--    		        <label for="description">Treść spota</label>-->
-<!--    		        <textarea rows="5" class="form-control" name="description" ></textarea>-->
-<!--    		    </div>-->
-<!--                <h1>-->
+        .form-group {
+margin: auto;
 
-<!--                </h1>-->
+width: 72%;
+    text-align: center;
+    user-input: center;
 
-<!--    		    <div class="form-group">-->
-<!--    		        <button type="submit" class="btn btn-primary">-->
-<!--    		            Opublikuj-->
-<!--    		        </button>-->
-<!--    		        <button class="btn btn-default">-->
-<!--    		            Anuluj-->
-<!--    		        </button>-->
-<!--    		    </div>-->
+padding: 6px;
+}
+        #id_title{
+    display: table;
+    margin: 0 auto;
+    border: 1px solid black;
+}
+     #id_content{
+    border: 1px solid black;
+}
 
-<!--    		</form>-->
-<!--		</div>-->
 
-<!--	</div>-->
-<!--</div>-->
+.asteriskField {
+    display: none;                      {#Deleting * from label#}
+}
+        button{
+            margin-top: 10px;
+            align-content: center;
+            outline: none !important;
+        border-color: #719ECE;
+        box-shadow: 0 0 10px #719ECE;
+        }
+    </style>
 
-    <h1>Form</h1>
-    <form method="POST">
-        <!-- https://docs.djangoproject.com/en/4.0/topics/forms/#looping-over-the-form-s-fields -->
-        {% csrf_token %}
-            {% for field in form %}
-            <div class='myform'>
-                {{ field }}
-            </div>
+{% load crispy_forms_tags %}
 
-            {% endfor %}
-        <input type="submit">
-    </form>
+   <form method="post" class="form-group" >
+    {% csrf_token %}
+   <div class="form-group col-md-6 mb-0">
+        {{ form.title|as_crispy_field }}
+      </div>
+    <div class="form-group col-md-6 mb-0">
+        {{ form.content|as_crispy_field }}
+        <button type="submit" class="btn btn-dark">Dodaj Post</button>
+      </div>
+
+  </form>
 
 {%endblock content%}

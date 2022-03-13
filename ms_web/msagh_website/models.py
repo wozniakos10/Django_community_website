@@ -8,6 +8,7 @@ User = settings.AUTH_USER_MODEL
 class Spot(models.Model):
     title = models.CharField(validators=[MinLengthValidator(5)], max_length=70)
     pub_date = models.DateTimeField(auto_now_add=True)
+    admin_aproved = models.BooleanField(default=False)
     user = models.ForeignKey(User,
                              blank=True,
                              null=True,
