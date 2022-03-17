@@ -70,7 +70,9 @@
     {% if posts.has_previous %}
       <li class="page-item ">
       <a class="page-link" href="?page={{ posts.previous_page_number }}">Poprzedni</a>
+          {% if posts.number > 2 %}
        <li class="page-item disabled"><a class="page-link" href="?page={{ posts.number }}"> ... </a></li>
+          {% endif %}
     <li class="page-item "><a class="page-link" href="?page={{ posts.previous_page_number }}">{{ posts.previous_page_number }}</a></li>
       </li>
         {% else %}
@@ -89,7 +91,9 @@
     {% if posts.has_next %}
       <li class="page-item ">
       <li class="page-item "><a class="page-link" href="?page={{ posts.next_page_number }}">{{ posts.next_page_number }}</a></li>
-    <li class="page-item disabled"><a class="page-link" href="?page={{ posts.number }}"> ... </a></li>
+      {% if posts.next_page_number != last_page %}
+    <li class="page-item disabled"><a class="page-link" href="?page={{ posts.number }}">  ... </a></li>
+          {% endif %}
       <a class="page-link" href="?page={{ posts.next_page_number }}">Kolejny</a>
       </li>
         {% else %}

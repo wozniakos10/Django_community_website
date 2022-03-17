@@ -9,14 +9,19 @@ def base(request):
     return render(request, 'base.html')
 
 def spotted(request):
-    posts_list = Spot.objects.all().order_by('-pub_date')
+    # look only for approved posts and order them by publication date
+    posts_list = Spot.objects.all().filter(admin_aproved=True).order_by('-pub_date')
+
 
     #Set up Paginator
     p = Paginator(posts_list,4)
     page = request.GET.get('page')
     posts = p.get_page(page)
+    # number of last page to show ( ... ) in html of spotted in paginator
+    last_page = p.get_page(-1).number
 
-    return render(request, 'msagh_website/spotted.html',{'posts': posts})
+    return render(request, 'msagh_website/spotted.html',{'posts': posts,
+                                                         "last_page": last_page})
 
 @login_required(login_url='/login')
 def new_spot(request):
