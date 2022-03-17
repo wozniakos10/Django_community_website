@@ -48,7 +48,16 @@ button{
 
 </style>
 
+
+
+
 <body>
+
+{#Prevent logged user to go to login page#}
+
+{% if user.is_authenticated %}
+     <meta http-equiv="refresh" content="0;URL='http://127.0.0.1:8000/'" />
+{% endif %}
 
 {% load crispy_forms_tags %}
 <form method="post" class="form-group">
