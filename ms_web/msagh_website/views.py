@@ -3,29 +3,38 @@ from django.contrib.auth.decorators import login_required
 from .forms import SpotForm
 from .models import Spot
 from django.core.paginator import Paginator
+
+
 # Create your views here.
 
 def base(request):
-    return render(request, 'base.html')
+    posts_list = Spot.objects.all().filter(admin_aproved=True).order_by('-pub_date')[:3]
+    first_post = posts_list[0]
+    second_post = posts_list[1]
+    third_post = posts_list[2]
+
+    return render(request, 'base.html', {'first_post': first_post,
+                                         'second_post': second_post,
+                                         'third_post': third_post, })
+
 
 def spotted(request):
     # look only for approved posts and order them by publication date
     posts_list = Spot.objects.all().filter(admin_aproved=True).order_by('-pub_date')
 
-
-    #Set up Paginator
-    p = Paginator(posts_list,4)
+    # Set up Paginator
+    p = Paginator(posts_list, 4)
     page = request.GET.get('page')
     posts = p.get_page(page)
     # number of last page to show ( ... ) in html of spotted in paginator
     last_page = p.get_page(-1).number
 
-    return render(request, 'msagh_website/spotted.html',{'posts': posts,
-                                                         "last_page": last_page})
+    return render(request, 'msagh_website/spotted.html', {'posts': posts,
+                                                          "last_page": last_page})
+
 
 @login_required(login_url='/login')
 def new_spot(request):
-
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:
         form = SpotForm(request.POST)
@@ -40,4 +49,4 @@ def new_spot(request):
         # if a GET (or any other method) we'll create a blank form
     else:
         form = SpotForm()
-    return render(request, 'msagh_website/new_spot.html', context={'form':form})
+    return render(request, 'msagh_website/new_spot.html', context={'form': form})
