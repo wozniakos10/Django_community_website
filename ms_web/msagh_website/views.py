@@ -50,3 +50,6 @@ def new_spot(request):
     else:
         form = SpotForm()
     return render(request, 'msagh_website/new_spot.html', context={'form': form})
+
+def memes(request):
+    return render(request, 'msagh_website/memes.html')
