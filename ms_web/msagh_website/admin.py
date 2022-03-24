@@ -1,11 +1,14 @@
 from django.contrib import admin
-from .models import Spot
+from .models import Spot,Meme
 # Register your models here.
 
 def approve_selected_post(modeladmin, request, queryset):
     for post in queryset:
         post.admin_aproved = True
         post.save()
+
+class MemeAdmin(admin.ModelAdmin):
+    list_display = ('title', 'pub_date', 'user','image','admin_aproved')
 
 
 
@@ -18,4 +21,6 @@ class SpotAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Spot,SpotAdmin)
+admin.site.register(Meme,MemeAdmin)
+
 
