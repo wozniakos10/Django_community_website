@@ -18,14 +18,14 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
-
-
+from django_email_verification import urls as email_urls
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('',include('msagh_website.urls')),
-    path('members/', include('members.urls')),
-    path('', include("django.contrib.auth.urls")),
-    path('verification/', include('verify_email.urls')),
-    path('captcha/', include('captcha.urls')),          #Adding simple Captcha to page
-]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) #Operation for images in meme section
+
+                  path('admin/', admin.site.urls),
+                  path('', include('msagh_website.urls')),
+                  path('members/', include('members.urls')),
+                  path('', include("django.contrib.auth.urls")),
+                  path('email/', include(email_urls)),  # verification user path
+                  path('captcha/', include('captcha.urls')),  # Adding simple Captcha to page
+              ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)  # Operation for images in meme section
