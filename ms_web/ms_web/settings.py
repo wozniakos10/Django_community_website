@@ -16,7 +16,6 @@ import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
@@ -27,7 +26,6 @@ SECRET_KEY = 'django-insecure-_7jp$wiq%dl!i8b=$^y69o0rjc)t%ezwb_h-vx_@jnd*+^5ro*
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -41,15 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     "crispy_forms",
-<<<<<<< HEAD
-    "captcha",   #Simple captcha to page
-    "django_email_verification",
-    "verify_email.apps.VerifyEmailConfig"
-
-=======
-    "captcha",     #Simple captcha to page
+    "captcha",  # Simple captcha to page
     'django_email_verification',
->>>>>>> 32648d7fa7390d074a84398243ffdb6db56eb732
+
 ]
 
 MIDDLEWARE = [
@@ -82,7 +74,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'ms_web.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
@@ -92,7 +83,6 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
@@ -112,7 +102,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
@@ -124,7 +113,6 @@ USE_I18N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
@@ -132,7 +120,7 @@ STATIC_URL = '/static/'
 
 """Defining components for image in meme section"""
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
@@ -144,9 +132,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = '/'
 
-
-
-
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 
@@ -157,14 +142,14 @@ def verified_callback(user):
 
 
 EMAIL_VERIFIED_CALLBACK = verified_callback
-EMAIL_FROM_ADDRESS = "CezarBr85@op.pl" # TODO: set it as a os.environ[]
+EMAIL_FROM_ADDRESS = "CezarBr85@op.pl"  # TODO: set it as a os.environ[]
 EMAIL_MAIL_SUBJECT = 'Confirm your email'
 EMAIL_MAIL_HTML = 'mail_body.html'
 EMAIL_MAIL_PLAIN = 'mail_body.txt'
 EMAIL_TOKEN_LIFE = 60 * 60
 EMAIL_PAGE_TEMPLATE = 'confirm_template.html'
 EMAIL_PAGE_DOMAIN = 'http://127.0.0.1:8000/'
-#EMAIL_MULTI_USER = True  # optional (defaults to False)
+# EMAIL_MULTI_USER = True  # optional (defaults to False)
 EMAIL_USE_TLS = True
 
 # For Django Email Backend
@@ -174,6 +159,5 @@ EMAIL_USE_TLS = True
 
 EMAIL_HOST = 'smtp.poczta.onet.pl'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = "CezarBr85@op.pl" # TODO: set it as a os.environ[]
+EMAIL_HOST_USER = "CezarBr85@op.pl"  # TODO: set it as a os.environ[]
 EMAIL_HOST_PASSWORD = 'tCzhbgqEG458'  # os.environ['password_key'] suggested
-
