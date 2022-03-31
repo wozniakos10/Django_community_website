@@ -41,7 +41,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     "crispy_forms",
-    "captcha"               #Simple captcha to page
+    "captcha",   #Simple captcha to page
+    "django_email_verification",
+    "verify_email.apps.VerifyEmailConfig"
+
 ]
 
 MIDDLEWARE = [
@@ -140,3 +143,53 @@ LOGIN_REDIRECT_URL = '/'
 
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+
+
+#
+# def verified_callback(user):
+#     user.is_active = True
+#
+#
+# EMAIL_VERIFIED_CALLBACK = verified_callback
+# EMAIL_FROM_ADDRESS = 'CezarBr85@op.pl'
+# EMAIL_MAIL_SUBJECT = 'Confirm your email'
+# EMAIL_MAIL_HTML = 'mail_body.html'
+# EMAIL_MAIL_PLAIN = 'mail_body.txt'
+# EMAIL_TOKEN_LIFE = 60 * 60
+# EMAIL_PAGE_TEMPLATE = 'confirm_template.html'
+# EMAIL_PAGE_DOMAIN = 'http://mydomain.com/'
+# EMAIL_MULTI_USER = True  # optional (defaults to False)
+#
+# # For Django Email Backend
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# EMAIL_HOST = 'smtp.poczta.onet.pl'
+# EMAIL_PORT = 465
+# EMAIL_HOST_USER = 'CezarBr85@op.pl'
+# EMAIL_HOST_PASSWORD = 'tCzhbgqEG458'  # os.environ['password_key'] suggested
+# EMAIL_USE_TLS = True
+
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.poczta.onet.pl'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = "CezarBr85@op.pl"
+EMAIL_HOST_PASSWORD = 'tCzhbgqEG458'
+
+DEFAULT_FROM_EMAIL = 'CezarBr85@op.pl'
+
+
+
+
+HTML_MESSAGE_TEMPLATE = "email_message.html"
+
+#VERIFICATION_SUCCESS_TEMPLATE = "base.html"
+
+LOGIN_URL = 'msagh_website:base'
+# VERIFICATION_FAILED_TEMPLATE = "path/to/failed.html"
+#
+# REQUEST_NEW_EMAIL_TEMPLATE = "path/to/email.html"
+#
+# LINK_EXPIRED_TEMPLATE = 'path/to/expired.html'

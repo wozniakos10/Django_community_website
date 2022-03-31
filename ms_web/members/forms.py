@@ -33,7 +33,7 @@ class RegisterForm(UserCreationForm):
                                 help_text="Enter the same password as above, for verification."
                                 )
 
-    captcha =  CaptchaField()
+    #git captcha =  CaptchaField()
 
 
     def clean_email(self):
