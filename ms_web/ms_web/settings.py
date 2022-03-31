@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     "crispy_forms",
-    "captcha"               #Simple captcha to page
+    "captcha",     #Simple captcha to page
+    'django_email_verification',
 ]
 
 MIDDLEWARE = [
@@ -140,3 +141,30 @@ LOGIN_REDIRECT_URL = '/'
 
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+# EMAIL VERIFICATION BELOW
+
+def verified_callback(user):
+    user.is_active = True
+
+
+EMAIL_VERIFIED_CALLBACK = verified_callback
+EMAIL_FROM_ADDRESS = "CezarBr85@op.pl" # TODO: set it as a os.environ[]
+EMAIL_MAIL_SUBJECT = 'Confirm your email'
+EMAIL_MAIL_HTML = 'mail_body.html'
+EMAIL_MAIL_PLAIN = 'mail_body.txt'
+EMAIL_TOKEN_LIFE = 60 * 60
+EMAIL_PAGE_TEMPLATE = 'confirm_template.html'
+EMAIL_PAGE_DOMAIN = 'http://127.0.0.1:8000/'
+#EMAIL_MULTI_USER = True  # optional (defaults to False)
+EMAIL_USE_TLS = True
+
+# For Django Email Backend
+
+# Send to console not as a email:
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+EMAIL_HOST = 'smtp.poczta.onet.pl'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = "CezarBr85@op.pl" # TODO: set it as a os.environ[]
+EMAIL_HOST_PASSWORD = 'tCzhbgqEG458'  # os.environ['password_key'] suggested
