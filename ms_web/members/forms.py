@@ -3,6 +3,7 @@ from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, UsernameField
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
+from captcha.fields import  CaptchaField
 
 
 class RegisterForm(UserCreationForm):
@@ -32,6 +33,9 @@ class RegisterForm(UserCreationForm):
                                 help_text="Enter the same password as above, for verification."
                                 )
 
+    captcha =  CaptchaField()
+
+
     def clean_email(self):
         email = self.cleaned_data['email']
         if User.objects.filter(email=email).exists():
@@ -41,3 +45,4 @@ class RegisterForm(UserCreationForm):
     class Meta:
         model = User
         fields = ["username", "email", "password1", "password2"]
+
