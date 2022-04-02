@@ -134,16 +134,20 @@ LOGIN_REDIRECT_URL = '/'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
-
 # EMAIL VERIFICATION BELOW
+# need to add .env file in ms_web/ms_web/
+from dotenv import load_dotenv, find_dotenv
+
+load_dotenv(find_dotenv())
+
 
 def verified_callback(user):
     user.is_active = True
 
 
 EMAIL_VERIFIED_CALLBACK = verified_callback
-EMAIL_FROM_ADDRESS = "CezarBr85@op.pl"  # TODO: set it as a os.environ[]
-EMAIL_MAIL_SUBJECT = 'Confirm your email'
+EMAIL_FROM_ADDRESS = os.environ.get("_email_from_address")
+EMAIL_MAIL_SUBJECT = 'Potwierdź rejestracje swojego konta na stronie MS AGH'
 EMAIL_MAIL_HTML = 'mail_body.html'
 EMAIL_MAIL_PLAIN = 'mail_body.txt'
 EMAIL_TOKEN_LIFE = 60 * 60
@@ -153,11 +157,10 @@ EMAIL_PAGE_DOMAIN = 'http://127.0.0.1:8000/'
 EMAIL_USE_TLS = True
 
 # For Django Email Backend
-
 # Send to console not as a email:
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-EMAIL_HOST = 'smtp.poczta.onet.pl'
-EMAIL_PORT = 587
-EMAIL_HOST_USER = "CezarBr85@op.pl"  # TODO: set it as a os.environ[]
-EMAIL_HOST_PASSWORD = 'tCzhbgqEG458'  # os.environ['password_key'] suggested
+EMAIL_HOST = os.environ.get("_email_host")
+EMAIL_PORT = os.environ.get("_email_port")
+EMAIL_HOST_USER = os.environ.get("_email_from_address") # can be the same as email from address
+EMAIL_HOST_PASSWORD = os.environ.get("_email_host_password")
