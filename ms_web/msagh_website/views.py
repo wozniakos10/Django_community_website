@@ -44,7 +44,7 @@ def new_spot(request):
             obj.user = request.user
             obj.save()
             form = SpotForm()
-            return redirect(reverse('msagh_website:spotted'))
+            return render(request,'msagh_website/success_post_spot.html')
 
         # if a GET (or any other method) we'll create a blank form
     else:

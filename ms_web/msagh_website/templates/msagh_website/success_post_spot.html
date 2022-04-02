@@ -1,0 +1,54 @@
+{% extends "base.html"%}
+
+
+{%block content%}
+<style>
+      body {
+        text-align: center;
+      }
+        h1 {
+          color: #88B04B;
+          font-family: "Nunito Sans", "Helvetica Neue", sans-serif;
+          font-weight: 900;
+          font-size: 40px;
+          margin-bottom: 10px;
+        }
+        p {
+          color: #404F5E;
+          font-family: "Nunito Sans", "Helvetica Neue", sans-serif;
+          font-size:20px;
+          margin: 0;
+        }
+      i {
+        color: #9ABC66;
+        font-size: 80px;
+        line-height: 200px;
+        margin-left:-15px;
+      }
+      .card {
+          position: relative;
+        background: white;
+        padding: 60px;
+        border-radius: 4px;
+        box-shadow: 0 2px 3px #C8D0D8;
+        display: inline-block;
+        margin-top: 50px;
+      }
+
+    </style>
+
+
+<div class="card">
+     <div class="jumbotron text-center">
+  <h1 class="display-3">Dziękujemy!</h1>
+  <p class="lead"><strong>Twój post czeka na akceptację przez Administracje</strong> </p>
+  <hr>
+  <p>
+    Masz pytania? Odwiedź sekcję <a href="{% url 'msagh_website:base' %}">pomoc</a>
+  </p>
+  <p class="lead">
+    <a class="btn btn-primary btn-sm" style="margin-top: 20px" href="{% url 'msagh_website:base' %} " role="button">Powrót na stronę główną</a>
+  </p>
+</div>
+
+{%endblock content%}
