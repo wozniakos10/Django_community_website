@@ -7,9 +7,12 @@ def approve_selected_post(modeladmin, request, queryset):
         post.admin_aproved = True
         post.save()
 
+
+
+
 class MemeAdmin(admin.ModelAdmin):
     list_display = ('title', 'pub_date', 'user','image','admin_aproved')
-
+    actions = [approve_selected_post]
 
 
 class SpotAdmin(admin.ModelAdmin):
