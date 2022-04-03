@@ -8,4 +8,5 @@ urlpatterns = [
     path('spotted/', views.spotted, name='spotted'),
     path('new_spot', views.new_spot, name="new_spot"),
     path('memes/', views.memes, name="memes"),
+    path('contact/', views.contact, name="contact"),
 ]

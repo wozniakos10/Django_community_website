@@ -53,3 +53,6 @@ def new_spot(request):
 
 def memes(request):
     return render(request, 'msagh_website/memes.html')
+
+def contact(request):
+    return render(request, 'msagh_website/contact.html')
