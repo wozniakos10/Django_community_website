@@ -1,10 +1,33 @@
 {% extends "base.html"%}
 
 {%block content%}
+<style>
+  .cosik {
+    /*align: right;*/
+    /*text-align: right;*/
+    position: relative;
+      allign : center;
+      top : 47px;
+      margin-bottom:100px;
+
+
+}
+
+</style>
+
 
 <h1></h1>
 <h1 class="mb-3" align="center">Najnowsze memy
+
+  <div class="cosik">
+<!--  <button type="button" class="btn btn-dark">Dodaj nowy spot</button>-->
+    <a href="{% url 'msagh_website:new_meme' %}" class="btn btn-dark" role="button">Dodaj nowy mem</a>
+</div>
 </h1>
+
 <img src="/media/przeskalowane.jpg" />
+
+
+
 
 {%endblock content%}

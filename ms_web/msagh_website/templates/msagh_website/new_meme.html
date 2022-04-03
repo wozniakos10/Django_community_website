@@ -1,0 +1,59 @@
+{% extends "base.html"%}
+
+{%block content%}
+<style>
+
+
+        input{
+
+        outline: none !important;
+        border-color: #719ECE;
+        box-shadow: 0 0 10px #719ECE;
+
+    }
+                                                                    {#Adding pretty shadow to title and content area#}
+
+
+
+        .form-group {
+margin: auto;
+            margin-top: 20px;
+
+width: 65%;
+    text-align: center;
+    user-input: center;
+
+padding: 6px;
+}
+        #id_title{
+    display: table;
+    margin: 0 auto;
+    border: 1px solid black;
+}
+
+
+
+.asteriskField {
+    display: none;                      {#Deleting * from label#}
+}
+        button{
+            margin-top: 10px;
+            align-content: center;
+            outline: none !important;
+        border-color: #719ECE;
+        box-shadow: 0 0 10px #719ECE;
+        }
+    </style>
+
+
+
+    <body>
+{% load crispy_forms_tags %}
+<form class="form-group" method="post" enctype="multipart/form-data">
+     {% csrf_token %}
+    {{form | crispy}}
+    <button type="submit" class="btn btn-dark">Dodaj mema</button>
+</form>
+</body>
+</html>
+{%endblock content%}

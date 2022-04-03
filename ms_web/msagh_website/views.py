@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, reverse
 from django.contrib.auth.decorators import login_required
-from .forms import SpotForm
-from .models import Spot
+from .forms import SpotForm,MemeForm
+from .models import Spot,Meme
 from django.core.paginator import Paginator
 
 
@@ -54,5 +54,27 @@ def new_spot(request):
 def memes(request):
     return render(request, 'msagh_website/memes.html')
 
+@login_required(login_url='/login')
+def new_meme(request):
+    if request.method == 'POST':
+        # create a form instance and populate it with data from the request:
+        form = MemeForm(request.POST,request.FILES)
+        # check whether it's valid:
+        if form.is_valid():
+            obj = form.save(commit=False)
+            obj.user = request.user
+            obj.save()
+
+            return render(request,'msagh_website/success_post_spot.html')
+
+        # if a GET (or any other method) we'll create a blank form
+    else:
+        form = MemeForm()
+    return render(request, 'msagh_website/new_meme.html', context={'form': form})
+
+
+
 def contact(request):
     return render(request, 'msagh_website/contact.html')
+
+
