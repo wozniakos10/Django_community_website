@@ -6,15 +6,13 @@
     /*align: right;*/
     /*text-align: right;*/
     position: relative;
-      allign : center;
+      allign : left;
       top : 47px;
-      margin-bottom:100px;
 
 
 }
 
 </style>
-
 
 <h1></h1>
 <h1 class="mb-3" align="center">Najnowsze memy
@@ -25,9 +23,82 @@
 </div>
 </h1>
 
-<img src="/media/przeskalowane.jpg" />
+<link href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet">
+<div class="container"  bgcolor=”#802003" align="center" >
+      <div>
+
+        <div class="col-lg-9 mb-3" >
+          <div class="row text-left mb-5">
+            <div class="col-lg-6 mb-3 mb-sm-0">
+            </div>
+          </div>
+
+    {% for meme in memes %}
+        {% if meme.admin_aproved %}
+    <div class="card row-hover pos-relative py-3 px-3 mb-3 border-warning border-top-3 border-right-3 border-bottom-3 " align="center" border-="red" >
+            <div class="row align-items-center">
+              <div class="col-md-12 mb-3 mb-sm-0">
+                <h5>
+                  <div align="center">
+                    <h8>{{ meme.title }}</h8>
+                  </div>
+                </h5>
+                <p class="text-sm"><span class="op-6">Dodane</span> {{ meme.pub_date }}</a> przez {{ meme.user }}</a></p>
+                <img src='{{ meme.image.url }}' />
+
+              </div>
+
+            <!--  PONIZEJ SEKCJA DO WYSWIETLANIA VIEWS + VOTES-->
+<!--              <div class="col-md-4 op-7">-->
+<!--                <div class="row text-center op-7">-->
+<!--                  <div class="col px-1"> <i class="ion-connection-bars icon-1x"></i> <span class="d-block text-sm">141 Votes</span> </div>-->
+
+<!--                  <div class="col px-1"> <i class="ion-ios-eye-outline icon-1x"></i> <span class="d-block text-sm">290 Views</span> </div>-->
+<!--                </div>-->
+<!--              </div>-->
+            </div>
+          </div>
+        {% endif %}
+    {% endfor %}
+
+
+    <nav aria-label="Page navigation example">
+  <ul class="pagination justify-content-center">
+    {% if memes.has_previous %}
+      <li class="page-item ">
+      <a class="page-link" href="?page={{ memes.previous_page_number }}">Poprzedni</a>
+          {% if memes.number > 2 %}
+       <li class="page-item disabled"><a class="page-link" href="?page={{ memes.number }}"> ... </a></li>
+          {% endif %}
+    <li class="page-item "><a class="page-link" href="?page={{ memes.previous_page_number }}">{{ memes.previous_page_number }}</a></li>
+      </li>
+        {% else %}
+        <li class="page-item disabled ">
+      <a class="page-link" href="">Poprzedni</a>
+        </li>
+    {% endif %}
+
+
+    <li class="page-item active ">
+        <a class="page-link" href="?page={{ memes.number }}">{{ memes.number }}<span class="sr-only"></span></a>
+    </li>
 
 
 
+    {% if memes.has_next %}
+      <li class="page-item ">
+      <li class="page-item "><a class="page-link" href="?page={{ memes.next_page_number }}">{{ memes.next_page_number }}</a></li>
+      {% if memes.next_page_number != last_page %}
+    <li class="page-item disabled"><a class="page-link" href="?page={{ memes.number }}">  ... </a></li>
+          {% endif %}
+      <a class="page-link" href="?page={{ memes.next_page_number }}">Kolejny</a>
+      </li>
+        {% else %}
+        <li class="page-item disabled ">
+      <a class="page-link" href="">Kolejny</a>
+        </li>
+    {% endif %}
 
-{%endblock content%}
+
+</nav>
+            {%endblock content%}

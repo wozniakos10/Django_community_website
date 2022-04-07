@@ -63,7 +63,18 @@ def new_spot(request):
     return render(request, 'msagh_website/new_spot.html', context={'form': form})
 
 def memes(request):
-    return render(request, 'msagh_website/memes.html')
+    # look only for approved posts and order them by publication date
+    memes_list = Meme.objects.all().filter(admin_aproved=True).order_by('-pub_date')
+
+    # Set up Paginator
+    p = Paginator(memes_list, 5)
+    page = request.GET.get('page')
+    memes = p.get_page(page)
+    # number of last page to show ( ... ) in html of spotted in paginator
+    last_page = p.get_page(-1).number
+
+    return render(request, 'msagh_website/memes.html', {'memes': memes,
+                                                        "last_page": last_page})
 
 @login_required(login_url='/login')
 def new_meme(request):
