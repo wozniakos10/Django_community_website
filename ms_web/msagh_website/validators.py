@@ -6,7 +6,7 @@ def validate_size(image):
     print(image.size)
     error = False
 
-    if image.size > 150000:
+    if image.size > 250000:
         error = True
 
     if error:
@@ -19,9 +19,9 @@ def validate_shape(image):
     """Validator for image shape in meme section"""
     print(image.width, " ", image.height)
     error = False
-    if not (400 < image.width < 750):
+    if not (400 < image.width < 950):
         error = True
-    if not (400 < image.height < 750):
+    if not (400 < image.height < 950):
         error = True
 
     if error:

@@ -49,9 +49,18 @@ padding: 6px;
 
     <body>
 {% load crispy_forms_tags %}
+{% load static %}
+<h1>
+
+</h1>
+            <div class="container" align="center">
+                <img src="{% static 'msagh_website/images/alfaXD.png' %}" alt="Dupa" height="180" width="200">
+            </div>
+
 <form class="form-group" method="post" enctype="multipart/form-data">
      {% csrf_token %}
     {{form | crispy}}
+    <p> Przeciągnij obrazek powyżej</p>
     <button type="submit" class="btn btn-dark">Dodaj mema</button>
 </form>
 </body>

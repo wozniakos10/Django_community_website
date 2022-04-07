@@ -33,6 +33,6 @@ class Meme(models.Model):
 
     admin_aproved = models.BooleanField(default=False)
     image = models.ImageField(
-        validators=[validate_size,validate_shape]
+        validators=[validate_size,validate_shape], upload_to='memes/'
     )
 
