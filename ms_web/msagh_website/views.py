@@ -111,7 +111,7 @@ def password_reset_request(request):
             associated_users = User.objects.filter(Q(email=data))
             if associated_users.exists():
                 for user in associated_users:
-                    subject = "Password Reset Requested"
+                    subject = "Resetowanie hasła"
                     email_template_name = "password/password_reset_email.txt"
                     c = {
                         "email": user.email,
@@ -128,11 +128,13 @@ def password_reset_request(request):
                     except BadHeaderError:
                         return HttpResponse('Invalid header found.')
 
+                    return render(request, 'msagh_website/success_reset_password_sent.html')
 
-                    return redirect('msagh_website:base')
-
-
+            else:
+                messages.warning(request, "Nie znaleźliśmy żadnego konta powiązanego z tym adresem Email, sprawdź swoje dane i spróbuj jeszcze raz.")
 
     password_reset_form = PasswordResetForm()
     return render(request=request, template_name="password/password_reset.html",
                   context={"password_reset_form": password_reset_form})
+
+

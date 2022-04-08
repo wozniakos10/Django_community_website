@@ -11,7 +11,7 @@ def validate_size(image):
 
     if error:
         raise ValidationError(
-            [f'Maksymalny rozmiar obrazka to 150kb.']
+            [f'Maksymalny rozmiar obrazka to 250kb.']
         )
 
 
