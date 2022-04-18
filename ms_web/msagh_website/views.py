@@ -104,37 +104,30 @@ def contact(request):
 
 
 def password_reset_request(request):
+    if request.user.is_authenticated:
+        return redirect(reverse('msagh_website:base'))  #Prevent logged user to reset password by type in browser
+
     if request.method == "POST":
         password_reset_form = PasswordResetForm(request.POST)
         if password_reset_form.is_valid():
-            data = password_reset_form.cleaned_data['email']
-            associated_users = User.objects.filter(Q(email=data))
+            data = password_reset_form.cleaned_data['email']        #Getting email from form
+            associated_users = User.objects.filter(Q(email=data,is_active = True))       #Checking if user with that email exists
             if associated_users.exists():
-                for user in associated_users:
-                    subject = "Resetowanie hasła"
-                    email_template_name = "password/password_reset_email.txt"
-                    c = {
-                        "email": user.email,
-                        'domain': '127.0.0.1:8000',
-                        'site_name': 'Website',
-                        "uid": urlsafe_base64_encode(force_bytes(user.pk)),
-                        "user": user,
-                        'token': default_token_generator.make_token(user),
-                        'protocol': 'http',
-                    }
-                    email = render_to_string(email_template_name, c)
-                    try:
-                        send_mail(subject, email, EMAIL_FROM_ADDRESS, [user.email], fail_silently=False)
-                    except BadHeaderError:
-                        return HttpResponse('Invalid header found.')
-
+                try:
+                    #Trying send email with link to reset password by built function
+                    password_reset_form.save(domain_override='127.0.0.1:8000', subject_template_name='password/password_reset_email.txt',
+                                             html_email_template_name='password/password_reset_body.html',from_email=EMAIL_FROM_ADDRESS)
                     return render(request, 'msagh_website/success_reset_password_sent.html')
+                except:
+                    #Warning if something went wrong
+                    messages.warning(request,'Coś poszło nie tak... spróbuj jeszcze raz.')
 
             else:
-                messages.warning(request, "Nie znaleźliśmy żadnego konta powiązanego z tym adresem Email, sprawdź swoje dane i spróbuj jeszcze raz.")
+                #Warning if user with that email do not exist
+                messages.warning(request, "Nie znaleźliśmy żadnego konta powiązanego z tym adresem Email, sprawdź swoje dane i spróbuj jeszcze raz."
+                                          " Jeśli jeszcze tego nie zrobiłeś, potwierdź swoje konto.")
 
     password_reset_form = PasswordResetForm()
     return render(request=request, template_name="password/password_reset.html",
                   context={"password_reset_form": password_reset_form})
-
 
