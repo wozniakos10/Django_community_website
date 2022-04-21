@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, reverse
 from django.contrib.auth.decorators import login_required
-from .forms import SpotForm, MemeForm
-from .models import Spot, Meme
+from .forms import SpotForm, MemeForm,CommentSpotForm
+from .models import Spot, Meme,CommentSpot
 from django.core.paginator import Paginator
 from django.core.mail import send_mail, BadHeaderError
 from django.http import HttpResponse
@@ -139,7 +139,32 @@ def one_spot(request, pk):
         single_spot = Spot.objects.all().filter(admin_aproved=True).order_by('pub_date').get(pk=pk)
     except Spot.DoesNotExist:
         return redirect(reverse('msagh_website:spotted'))
+
+    if request.method == 'POST':
+            # create a form instance and populate it with data from the request:
+            form = CommentSpotForm(request.POST)
+            # check whether it's valid:
+            if form.is_valid():
+                obj = form.save(commit=False)
+                obj.user = request.user
+                obj.spot = single_spot
+                obj.save()
+                comments = CommentSpot.objects.all().filter(spot = single_spot)
+                form = CommentSpotForm()
+                ctx = {
+                    'single_spot': single_spot,
+                    'form': form,
+                    'comments': comments}
+
+                return render(request, 'msagh_website/one_spot.html',context=ctx)
+    else:
+
+        form = CommentSpotForm()
+    comments = CommentSpot.objects.all().filter(spot=single_spot)
+
     ctx = {
-        'single_spot': single_spot
-    }
+        'single_spot': single_spot,
+        'form': form,
+        'comments': comments}
+
     return render(request, 'msagh_website/one_spot.html', context=ctx)  # Write a new template to view your news.

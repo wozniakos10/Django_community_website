@@ -1,5 +1,5 @@
 from django import forms
-from .models import Spot,Meme
+from .models import Spot,Meme,CommentSpot
 
 
 class SpotForm(forms.ModelForm):
@@ -37,5 +37,15 @@ class MemeForm(forms.ModelForm):
         widgets = {
             'title': forms.TextInput(attrs={'class': 'form-group'}),
 
+
+        }
+
+class CommentSpotForm(forms.ModelForm):
+    class Meta:
+        model = CommentSpot
+        fields = ['content']
+        widgets = {
+
+            'content': forms.Textarea(attrs={'class': 'form-group'},)
 
         }

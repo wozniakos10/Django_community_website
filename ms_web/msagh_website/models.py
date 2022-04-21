@@ -36,3 +36,16 @@ class Meme(models.Model):
         validators=[validate_size,validate_shape], upload_to='memes/'
     )
 
+class CommentSpot(models.Model):
+    spot = models.ForeignKey(Spot,blank=True,
+                             null=True,on_delete=models.CASCADE)
+    user = models.ForeignKey(User,
+                             blank=True,
+                             null=True,
+                             on_delete=models.SET_NULL
+                             )
+    pub_date = models.DateTimeField(auto_now_add=True)
+    content = models.CharField(max_length=1000)
+
+
+

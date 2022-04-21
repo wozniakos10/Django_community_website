@@ -8,7 +8,32 @@
       top : 47px;
 
 
+  }
+
+  textarea{
+      resize : None;
+      height: 40%;
+  }
+
+.form-group {
+
+width: 100%;
+    height: 50%;
+    text-align: center;
+    user-input: center;
+
+padding: 1px;
 }
+
+
+    button{
+            margin-top: 1px;
+            align-content: center;
+            outline: none !important;
+
+        }
+
+
 </style>
 
   <h1>
@@ -56,5 +81,54 @@
                 </div>
               </div>
             </div>
+
+
+
+
+    </div>
+
+        {% load crispy_forms_tags %}
+
+   <form method="post" class="form-group" >
+    {% csrf_token %}
+   <div class="form-group col-md-6 mb-0">
+        {{ form.content }}
+      </div>
+    <div class="form-group col-md-6 mb-0">
+
+        <button type="submit" class="btn btn-dark">Dodaj Komentarz</button>
+      </div>
+
+  </form>
+        <div class="container my-5 py-5 text-dark">
+    <div class="row d-flex justify-content-center">
+      <div class="col-md-11 col-lg-9 col-xl-7">
+        {% for comment in comments %}
+
+<div class="d-flex flex-start mb-4">
+
+          <div class="card w-100">
+            <div class="card-body p-4">
+              <div class="">
+                <h5>{{ comment.user }} </h5>
+                <p class="small">{{ comment.pub_date}}o</p>
+                <p>
+                    {{comment.content}}
+                </p>
+
+
+              </div>
+            </div>
           </div>
+        </div>
+
+
+
+{% endfor %}
+
+
+
+
+
+
 {%endblock content%}
