@@ -1,0 +1,60 @@
+{% extends "base.html"%}
+
+{%block content%}
+<style>
+  .cosik {
+    position: relative;
+      allign : left;
+      top : 47px;
+
+
+}
+</style>
+
+  <h1>
+    <br/>
+  </h1>
+  <h1 class="mb-3" align="center"> {{ single_spot.title }}
+
+  <div class="cosik">
+<!--  <button type="button" class="btn btn-dark">Dodaj nowy spot</button>-->
+</div>
+</h1>
+
+
+
+
+<link href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet">
+<div class="container"  bgcolor=”#802003" align="center" >
+      <div>
+
+        <div class="col-lg-9 mb-3" >
+          <div class="row text-left mb-5">
+            <div class="col-lg-6 mb-3 mb-sm-0">
+            </div>
+          </div>
+
+
+
+    <div class="card row-hover pos-relative py-3 px-3 mb-3 border-warning border-top-3 border-right-3 border-bottom-3 rounded-10 width-4" align="left" border-="red" >
+            <div class="row align-items-center">
+              <div class="col-md-8 mb-3 mb-sm-0">
+                <h5>
+                  <div>
+                    <h8>{{ single_spot.title }}</h8>
+                  </div>
+                </h5>
+                <p class="text-sm"><span class="op-6">Dodane</span> {{ single_spot.pub_date }}</a> przez {{ single_spot.user }}</a></p>
+                <h8>{{ single_spot.content }}</h8>
+
+              </div>
+              <div class="col-md-4 op-7">
+                <div class="row text-center op-7">
+                  <div class="col px-1"> <i class="ion-connection-bars icon-1x"></i> <span class="d-block text-sm">141 Votes</span> </div>
+
+                  <div class="col px-1"> <i class="ion-ios-eye-outline icon-1x"></i> <span class="d-block text-sm">290 Views</span> </div>
+                </div>
+              </div>
+            </div>
+          </div>
+{%endblock content%}

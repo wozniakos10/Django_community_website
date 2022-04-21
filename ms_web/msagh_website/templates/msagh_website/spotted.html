@@ -41,7 +41,7 @@
               <div class="col-md-8 mb-3 mb-sm-0">
                 <h5>
                   <div>
-                    <h8>{{ post.title }}</h8>
+                   <a href="{% url 'msagh_website:one_spot' post.pk %}">{{ post.title }}</a>
                   </div>
                 </h5>
                 <p class="text-sm"><span class="op-6">Dodane</span> {{ post.pub_date }}</a> przez {{ post.user }}</a></p>

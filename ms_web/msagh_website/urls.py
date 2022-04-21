@@ -6,6 +6,7 @@ app_name = "msagh_website"
 
 urlpatterns = [
     path('',views.base,name='base'),
+    path('spotted/<int:pk>', views.one_spot, name="one_spot"),
     path('spotted/', views.spotted, name='spotted'),
     path('new_spot', views.new_spot, name="new_spot"),
     path('memes/', views.memes, name="memes"),
