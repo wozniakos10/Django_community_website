@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, reverse
 from django.contrib.auth.decorators import login_required
-from .forms import SpotForm, MemeForm,CommentSpotForm
-from .models import Spot, Meme,CommentSpot
+from .forms import SpotForm, MemeForm, CommentSpotForm
+from .models import Spot, Meme, CommentSpot
 from django.core.paginator import Paginator
 from django.core.mail import send_mail, BadHeaderError
 from django.http import HttpResponse
@@ -37,10 +37,18 @@ def spotted(request):
     p = Paginator(posts_list, 4)
     page = request.GET.get('page')
     posts = p.get_page(page)
+
+    # list of numbers of comments for every spot:
+    numbers = []
+    for post in posts:
+        comments = CommentSpot.objects.all().filter(spot=post)
+        numbers.append(len(comments))
     # number of last page to show ( ... ) in html of spotted in paginator
     last_page = p.get_page(-1).number
 
+    numbers_posts = zip(numbers, posts)  # zip to iterate into django template
     return render(request, 'msagh_website/spotted.html', {'posts': posts,
+                                                          "numbers_posts": numbers_posts,
                                                           "last_page": last_page})
 
 
@@ -141,30 +149,26 @@ def one_spot(request, pk):
         return redirect(reverse('msagh_website:spotted'))
 
     if request.method == 'POST':
-            # create a form instance and populate it with data from the request:
-            form = CommentSpotForm(request.POST)
-            # check whether it's valid:
-            if form.is_valid():
-                obj = form.save(commit=False)
-                obj.user = request.user
-                obj.spot = single_spot
-                obj.save()
-                comments = CommentSpot.objects.all().filter(spot = single_spot)
-                form = CommentSpotForm()
-                ctx = {
-                    'single_spot': single_spot,
-                    'form': form,
-                    'comments': comments}
-
-                return render(request, 'msagh_website/one_spot.html',context=ctx)
+        # create a form instance and populate it with data from the request:
+        form = CommentSpotForm(request.POST)
+        # check whether it's valid:
+        if form.is_valid():
+            obj = form.save(commit=False)
+            obj.user = request.user
+            obj.spot = single_spot
+            obj.save()
+            return redirect(reverse('msagh_website:one_spot', args=(pk,)))
     else:
 
         form = CommentSpotForm()
-    comments = CommentSpot.objects.all().filter(spot=single_spot)
 
+    comments = CommentSpot.objects.all().filter(spot=single_spot)
+    no_comments = len(comments)
     ctx = {
         'single_spot': single_spot,
         'form': form,
-        'comments': comments}
+        'comments': comments,
+        "no_comments": no_comments,
+    }
 
     return render(request, 'msagh_website/one_spot.html', context=ctx)  # Write a new template to view your news.

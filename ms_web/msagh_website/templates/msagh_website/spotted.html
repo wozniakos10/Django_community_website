@@ -1,6 +1,10 @@
 {% extends "base.html"%}
-
 {%block content%}
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
 <style>
   .cosik {
     /*align: right;*/
@@ -34,7 +38,7 @@
             </div>
           </div>
 
-    {% for post in posts %}
+    {% for number, post in numbers_posts %}
         {% if post.admin_aproved %}
     <div class="card row-hover pos-relative py-3 px-3 mb-3 border-warning border-top-3 border-right-3 border-bottom-3 rounded-10 width-4" align="left" border-="red" >
             <div class="row align-items-center">
@@ -50,9 +54,7 @@
               </div>
               <div class="col-md-4 op-7">
                 <div class="row text-center op-7">
-                  <div class="col px-1"> <i class="ion-connection-bars icon-1x"></i> <span class="d-block text-sm">141 Votes</span> </div>
-
-                  <div class="col px-1"> <i class="ion-ios-eye-outline icon-1x"></i> <span class="d-block text-sm">290 Views</span> </div>
+                  <div class="col px-1"> <i style="font-size:24px" class="fa">&#xf0e6;</i> <span class="d-block text-sm"> {{ number }} komentarzy</span> </div>
                 </div>
               </div>
             </div>
