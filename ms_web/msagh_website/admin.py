@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Spot, Meme,CommentSpot
+from .models import Spot, Meme, CommentSpot
 
 
 # Register your models here.
@@ -34,35 +34,42 @@ class InputFilter(admin.SimpleListFilter):
 
 class MemeAdmin(admin.ModelAdmin):
     list_display = ('title', 'pub_date', 'user', 'image', 'admin_aproved')
+    readonly_fields = ('user', )
     list_filter = [
         "admin_aproved", InputFilter, "user"
     ]
-    search_fields = ['title','user__username' ]  # search label on the center of page
+    search_fields = ['title', 'user__username']  # search label on the center of page
     list_per_page = 20  # no. posts in one admin page
     actions = [approve_selected_post]
 
+
+class CommentSpotAdmin(admin.ModelAdmin):
+    list_display = ('user', 'spot', 'pub_date', 'spot')
+    readonly_fields = ('spot', 'user')
+    search_fields = ['content', 'user__username', 'spot']  # search label on the center of page
+    list_per_page = 20  # no. posts in one admin page
+    list_filter = [
+        'user', InputFilter, 'spot',
+    ]
+
+
+class CommentSpotInline(admin.TabularInline):
+    model = CommentSpot
+    fields = ('content','user', 'pub_date')
+    readonly_fields = ('user','spot', 'pub_date')
 
 class SpotAdmin(admin.ModelAdmin):
     list_display = ('title', 'pub_date', 'user', 'content', 'admin_aproved')
     list_filter = [
         "admin_aproved", InputFilter, "user"
     ]
-    search_fields = ['title','user__username' ]  # search label on the center of page
+    readonly_fields = ('user',)
+    inlines = [CommentSpotInline]
+    search_fields = ['title', 'user__username']  # search label on the center of page
     list_per_page = 20  # no. posts in one admin page
     actions = [approve_selected_post]
 
 
-
-class CommentSpotAdmin(admin.ModelAdmin):
-    list_display = ('content','user', 'pub_date', 'spot' )
-
-    search_fields = ['content','user__username','spot' ]  # search label on the center of page
-    list_per_page = 20  # no. posts in one admin page
-    list_filter = [
-        'user', InputFilter,'spot',
-    ]
-
-
 admin.site.register(Spot, SpotAdmin)
 admin.site.register(Meme, MemeAdmin)
-admin.site.register(CommentSpot,CommentSpotAdmin)
+admin.site.register(CommentSpot, CommentSpotAdmin)
