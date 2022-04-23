@@ -43,14 +43,20 @@ padding: 1px;
             outline: none !important;
 
         }
-
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  height: 100px;
+    width: 150px;
+}
 
 </style>
-
+{% load static %}
   <h1>
     <br/>
   </h1>
-  <h1 class="mb-3" align="center"> {{ single_spot.title }}
+    <img class="center" src="{% static 'msagh_website/images/alfaXD.png' %}" alt="Dupa" height="180" width="200">
 
   <div class="cosik">
 <!--  <button type="button" class="btn btn-dark">Dodaj nowy spot</button>-->

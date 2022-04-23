@@ -16,6 +16,9 @@ padding: 8px;
 
 
 }
+.asteriskField {
+    display: none;                      {#Deleting * from label#}
+}
 
 .requiredField{
     color: #000000;
@@ -52,6 +55,15 @@ button{
 
 {#Prevent logged user to go to login page#}
 
+{% if form.errors %}
+
+<div class="alert alert-danger" role="alert">
+  Niewłaściwa nazwa użytkownika lub hasło. Sprawdź swoje dane i spróbuj ponownie.
+</div>
+{% endif %}
+
+
+
 {% if user.is_authenticated %}
      <meta http-equiv="refresh" content="0;URL='http://127.0.0.1:8000/'" />
 {% endif %}
@@ -66,7 +78,7 @@ button{
         {{ form.password|as_crispy_field }}
       </div>
     <span style=" color: black; font-weight: bold; ">
-    <p>Register <a href="/members">here</a></p>
+    <p> <a href="/members">Rejestracja</a></p>
         <p>Zapomniałeś hasła? Kliknij <a href="/password_reset">tutaj</a></p>
         </span>
   <button type="submit" class="btn btn-success">Login</button>
