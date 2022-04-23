@@ -149,14 +149,18 @@ def one_spot(request, pk):
         return redirect(reverse('msagh_website:spotted'))
 
     if request.method == 'POST':
-        # create a form instance and populate it with data from the request:
-        form = CommentSpotForm(request.POST)
-        # check whether it's valid:
-        if form.is_valid():
-            obj = form.save(commit=False)
-            obj.user = request.user
-            obj.spot = single_spot
-            obj.save()
+        if request.user.is_authenticated:
+            # create a form instance and populate it with data from the request:
+            form = CommentSpotForm(request.POST)
+            # check whether it's valid:
+            if form.is_valid():
+                obj = form.save(commit=False)
+                obj.user = request.user
+                obj.spot = single_spot
+                obj.save()
+                return redirect(reverse('msagh_website:one_spot', args=(pk,)))
+        else:
+            messages.warning(request, 'Musisz się zalogować aby dodać komentarz!')
             return redirect(reverse('msagh_website:one_spot', args=(pk,)))
     else:
 

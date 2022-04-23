@@ -46,6 +46,6 @@ class CommentSpotForm(forms.ModelForm):
         fields = ['content']
         widgets = {
 
-            'content': forms.Textarea(attrs={'class': 'form-group'},)
+            'content': forms.Textarea(attrs={'rows': 4, 'cols': 70,},)
 
         }
