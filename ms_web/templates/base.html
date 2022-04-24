@@ -6,6 +6,7 @@
     <title>BASE PAGE HTML</title>
     <!-- CSS only -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- JavaScript Bundle with Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 {% load static %}
@@ -20,6 +21,12 @@ background-image: url({% static 'msagh_website/images/background_image.jpg' %});
             color: #000000;
             font-size:18px;
     }
+      .allspots {
+
+  /* Center vertically */
+  position: relative;
+        text-align: center;
+}
 
         </style>
 </head>
@@ -71,7 +78,7 @@ background-image: url({% static 'msagh_website/images/background_image.jpg' %});
     <img  src="{% static 'msagh_website/images/alfaXD.png' %}" alt="Dupa" height="180" width="200">
     </div>
   <div class="my-3 p-3 bg-body rounded shadow-sm">
-    <h6 class="border-bottom pb-2 mb-0">Ostatnie spoty</h6>
+    <h6 class="border-bottom pb-2 mb-0"><i style="font-size:24px" class="fa">&#xf1ea;</i> Ostatnie spoty</h6>
     <div class="d-flex text-muted pt-3">
       <svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 32x32" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#007bff"/><text x="50%" y="50%" fill="#007bff" dy=".3em">32x32</text></svg>
 
@@ -81,7 +88,7 @@ background-image: url({% static 'msagh_website/images/background_image.jpg' %});
         {% else %}
           <strong class="d-block text-gray-dark"> Użytkownik usunięty </strong>
         {% endif %}
-        {{ first_post.title }}
+    <a href="{% url 'msagh_website:one_spot' first_post.pk %}">{{ first_post.title}}</a>
       </p>
     </div>
     <div class="d-flex text-muted pt-3">
@@ -93,7 +100,7 @@ background-image: url({% static 'msagh_website/images/background_image.jpg' %});
         {% else %}
           <strong class="d-block text-gray-dark"> Użytkownik usunięty </strong>
         {% endif %}
-        {{ second_post.title }}
+        <a href="{% url 'msagh_website:one_spot' second_post.pk %}">{{ second_post.title}}</a>
       </p>
     </div>
     <div class="d-flex text-muted pt-3">
@@ -105,25 +112,27 @@ background-image: url({% static 'msagh_website/images/background_image.jpg' %});
         {% else %}
           <strong class="d-block text-gray-dark"> Użytkownik usunięty </strong>
         {% endif %}
-        {{ third_post.title }}
+        <a href="{% url 'msagh_website:one_spot' third_post.pk %}">{{ third_post.title}}</a>
+
       </p>
     </div>
-    <small class="d-block text-end mt-3">
-      <a href="{% url 'msagh_website:spotted' %}">Wszystkie Spoty</a>
+    <small class="center">
+      <div class = "allspots">
+              <a href="{% url 'msagh_website:spotted' %}">Wszystkie Spoty</a>
+      </div>
     </small>
   </div>
 
   <div class="my-3 p-3 bg-body rounded shadow-sm">
-    <h6 class="border-bottom pb-2 mb-0">Promocje</h6>
+    <h6 class="border-bottom pb-2 mb-0"><i class="fa fa-graduation-cap" style="font-size:27px"></i> Administracja poleca</h6>
     <div class="d-flex text-muted pt-3">
       <svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 32x32" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#007bff"/><text x="50%" y="50%" fill="#007bff" dy=".3em">32x32</text></svg>
 
       <div class="pb-3 mb-0 small lh-sm border-bottom w-100">
         <div class="d-flex justify-content-between">
-          <strong class="text-gray-dark">Full Name</strong>
-          <a href="#">Follow</a>
+          <strong class="text-gray-dark">Algebra liniowa</strong>
         </div>
-        <span class="d-block">@username</span>
+        <a href="https://home.agh.edu.pl/~gora/">Rewelacyjne materiały do Algebry liniowej (i nie tylko)</a>
       </div>
     </div>
     <div class="d-flex text-muted pt-3">
@@ -131,10 +140,9 @@ background-image: url({% static 'msagh_website/images/background_image.jpg' %});
 
       <div class="pb-3 mb-0 small lh-sm border-bottom w-100">
         <div class="d-flex justify-content-between">
-          <strong class="text-gray-dark">Full Name</strong>
-          <a href="#">Follow</a>
+          <strong class="text-gray-dark">Teoria macierzy Jordana</strong>
         </div>
-        <span class="d-block">@username</span>
+        <a href="https://www.youtube.com/watch?v=iGQg3iAxbT4&ab_channel=MateuszKowalski">Rozwiązania kilku przykładów</a>
       </div>
     </div>
     <div class="d-flex text-muted pt-3">
@@ -142,14 +150,13 @@ background-image: url({% static 'msagh_website/images/background_image.jpg' %});
 
       <div class="pb-3 mb-0 small lh-sm border-bottom w-100">
         <div class="d-flex justify-content-between">
-          <strong class="text-gray-dark">Full Name</strong>
-          <a href="#">Follow</a>
+          <strong class="text-gray-dark">Metody numeryczne</strong>
         </div>
-        <span class="d-block">@username</span>
+        <a href="https://github.com/KAIR-ISZ/public_lectures/tree/master/Metody%20Numeryczne%202021">Teoria do zagadnień metod numerycznych</a>
+
       </div>
     </div>
     <small class="d-block text-end mt-3">
-      <a href="#">All suggestions</a>
     </small>
   </div>
 </main>
