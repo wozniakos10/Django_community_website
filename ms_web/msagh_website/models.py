@@ -36,6 +36,7 @@ class Meme(models.Model):
         validators=[validate_size,validate_shape], upload_to='memes/'
     )
 
+
 class CommentSpot(models.Model):
     spot = models.ForeignKey(Spot,blank=True,
                              null=True,on_delete=models.CASCADE)
@@ -52,7 +53,7 @@ class CommentSpot(models.Model):
 
 
 class CommentMeme(models.Model):
-    memes = models.ForeignKey(Meme,blank=True,
+    meme = models.ForeignKey(Meme,blank=True,
                              null=True,on_delete=models.CASCADE)
     user = models.ForeignKey(User,
                              blank=True,

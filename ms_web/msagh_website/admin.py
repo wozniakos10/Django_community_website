@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Spot, Meme, CommentSpot
+from .models import Spot, Meme, CommentSpot,CommentMeme
 
 
 # Register your models here.
@@ -43,6 +43,16 @@ class MemeAdmin(admin.ModelAdmin):
     actions = [approve_selected_post]
 
 
+class CommentMemeAdmin(admin.ModelAdmin):
+    list_display = ('user', 'meme', 'pub_date','meme')
+    readonly_fields = ('meme', 'user')
+    search_fields = ['content', 'user__username', 'meme']  # search label on the center of page
+    list_per_page = 20  # no. posts in one admin page
+    list_filter = [
+        'user', InputFilter, 'meme',
+    ]
+
+
 class CommentSpotAdmin(admin.ModelAdmin):
     list_display = ('user', 'spot', 'pub_date', 'spot')
     readonly_fields = ('spot', 'user')
@@ -70,6 +80,10 @@ class SpotAdmin(admin.ModelAdmin):
     actions = [approve_selected_post]
 
 
+
+
+
 admin.site.register(Spot, SpotAdmin)
 admin.site.register(Meme, MemeAdmin)
 admin.site.register(CommentSpot, CommentSpotAdmin)
+admin.site.register(CommentMeme,CommentMemeAdmin)

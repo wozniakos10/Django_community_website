@@ -83,7 +83,7 @@ def memes(request):
     # list of numbers of comments for every spot:
     numbers = []
     for meme in memes:
-        comments = CommentMeme.objects.all().filter(memes=meme)
+        comments = CommentMeme.objects.all().filter(meme=meme)
         numbers.append(len(comments))
     # number of last page to show ( ... ) in html of spotted in paginator
     last_page = p.get_page(-1).number
@@ -199,7 +199,7 @@ def one_meme(request, pk):
             if form.is_valid():
                 obj = form.save(commit=False)
                 obj.user = request.user
-                obj.spot = single_meme
+                obj.meme = single_meme
                 obj.save()
                 return redirect(reverse('msagh_website:one_meme', args=(pk,)))
         else:
@@ -209,7 +209,7 @@ def one_meme(request, pk):
 
         form = CommentMemeForm()
 
-    comments = CommentMeme.objects.all().filter(memes=single_meme)
+    comments = CommentMeme.objects.all().filter(meme=single_meme)
     ctx = {
         'single_meme': single_meme,
         'form': form,
