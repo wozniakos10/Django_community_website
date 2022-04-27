@@ -51,4 +51,19 @@ class CommentSpot(models.Model):
         return f"{self.content[:10]}"
 
 
+class CommentMeme(models.Model):
+    memes = models.ForeignKey(Meme,blank=True,
+                             null=True,on_delete=models.CASCADE)
+    user = models.ForeignKey(User,
+                             blank=True,
+                             null=True,
+                             on_delete=models.SET_NULL
+                             )
+    pub_date = models.DateTimeField(auto_now_add=True)
+    content = models.CharField(max_length=1000)
+
+    def __str__(self):
+        return f"{self.content[:10]}"
+
+
 

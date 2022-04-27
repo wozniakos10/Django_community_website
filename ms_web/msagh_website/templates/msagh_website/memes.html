@@ -33,31 +33,30 @@
             </div>
           </div>
 
-    {% for meme in memes %}
+    {% for number, meme in numbers_memes %}
         {% if meme.admin_aproved %}
     <div class="card row-hover pos-relative py-3 px-3 mb-3 border-warning border-top-3 border-right-3 border-bottom-3 " align="center" border-="red" >
             <div class="row align-items-center">
               <div class="col-md-12 mb-3 mb-sm-0">
                 <h5>
                   <div align="center">
-                    <h8>{{ meme.title }}</h8>
+                    <h8><a style="text-decoration: none; color: black" href="{% url 'msagh_website:one_meme' meme.pk %}">{{ meme.title }}</a></h8>
                   </div>
                 </h5>
                 <p class="text-sm"><span class="op-6">Dodane</span> {{ meme.pub_date }}</a> przez {{ meme.user }}</a></p>
-                <img src='{{ meme.image.url }}' />
+                <a  href="{% url 'msagh_website:one_meme' meme.pk %}">
+                    <img src='{{ meme.image.url }}' />
+                </a>
 
               </div>
+<div style="margin-top: 20px" class="row text-center op-7">
+                  <div class="col px-1"> <i style="font-size:24px" class="fa">&#xf0e6;</i> <span class="d-block text-sm"> {{ number }} komentarzy</span> </div>
+                </div>
 
-            <!--  PONIZEJ SEKCJA DO WYSWIETLANIA VIEWS + VOTES-->
-<!--              <div class="col-md-4 op-7">-->
-<!--                <div class="row text-center op-7">-->
-<!--                  <div class="col px-1"> <i class="ion-connection-bars icon-1x"></i> <span class="d-block text-sm">141 Votes</span> </div>-->
 
-<!--                  <div class="col px-1"> <i class="ion-ios-eye-outline icon-1x"></i> <span class="d-block text-sm">290 Views</span> </div>-->
-<!--                </div>-->
-<!--              </div>-->
             </div>
           </div>
+
         {% endif %}
     {% endfor %}
 

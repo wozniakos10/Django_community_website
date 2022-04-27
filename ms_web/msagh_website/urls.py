@@ -10,6 +10,7 @@ urlpatterns = [
     path('spotted/', views.spotted, name='spotted'),
     path('new_spot', views.new_spot, name="new_spot"),
     path('memes/', views.memes, name="memes"),
+    path('memes/<int:pk>', views.one_meme, name="one_meme"),
     path('new_meme/',views.new_meme,name='new_meme'),
     path('contact/', views.contact, name="contact"),
     path("password_reset/", views.password_reset_request, name="password_reset"),

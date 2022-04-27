@@ -1,5 +1,5 @@
 from django import forms
-from .models import Spot,Meme,CommentSpot
+from .models import Spot,Meme,CommentSpot,CommentMeme
 
 
 class SpotForm(forms.ModelForm):
@@ -43,6 +43,16 @@ class MemeForm(forms.ModelForm):
 class CommentSpotForm(forms.ModelForm):
     class Meta:
         model = CommentSpot
+        fields = ['content']
+        widgets = {
+
+            'content': forms.Textarea(attrs={'rows': 4, 'cols': 70,},)
+
+        }
+
+class CommentMemeForm(forms.ModelForm):
+    class Meta:
+        model = CommentMeme
         fields = ['content']
         widgets = {
 

@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, reverse
 from django.contrib.auth.decorators import login_required
-from .forms import SpotForm, MemeForm, CommentSpotForm
-from .models import Spot, Meme, CommentSpot
+from .forms import SpotForm, MemeForm, CommentSpotForm,CommentMemeForm
+from .models import Spot, Meme, CommentSpot,CommentMeme
 from django.core.paginator import Paginator
 from django.core.mail import send_mail, BadHeaderError
 from django.http import HttpResponse
@@ -79,11 +79,19 @@ def memes(request):
     p = Paginator(memes_list, 5)
     page = request.GET.get('page')
     memes = p.get_page(page)
+
+    # list of numbers of comments for every spot:
+    numbers = []
+    for meme in memes:
+        comments = CommentMeme.objects.all().filter(memes=meme)
+        numbers.append(len(comments))
     # number of last page to show ( ... ) in html of spotted in paginator
     last_page = p.get_page(-1).number
-
+    numbers_memes = zip(numbers, memes)  # zip to iterate into django template
     return render(request, 'msagh_website/memes.html', {'memes': memes,
-                                                        "last_page": last_page})
+                                                        "last_page": last_page,
+                                                        "numbers_memes": numbers_memes
+                                                        })
 
 
 @login_required(login_url='/login')
@@ -176,3 +184,36 @@ def one_spot(request, pk):
     }
 
     return render(request, 'msagh_website/one_spot.html', context=ctx)  # Write a new template to view your news.
+
+def one_meme(request, pk):
+    try:
+        single_meme = Meme.objects.all().filter(admin_aproved=True).order_by('pub_date').get(pk=pk)
+    except Meme.DoesNotExist:
+        return redirect(reverse('msagh_website:memes'))
+
+    if request.method == 'POST':
+        if request.user.is_authenticated:
+            # create a form instance and populate it with data from the request:
+            form = CommentMemeForm(request.POST)
+            # check whether it's valid:
+            if form.is_valid():
+                obj = form.save(commit=False)
+                obj.user = request.user
+                obj.spot = single_meme
+                obj.save()
+                return redirect(reverse('msagh_website:one_meme', args=(pk,)))
+        else:
+            messages.warning(request, 'Musisz się zalogować aby dodać komentarz!')
+            return redirect(reverse('msagh_website:one_meme', args=(pk,)))
+    else:
+
+        form = CommentMemeForm()
+
+    comments = CommentMeme.objects.all().filter(memes=single_meme)
+    ctx = {
+        'single_meme': single_meme,
+        'form': form,
+        'comments': comments
+    }
+
+    return render(request, 'msagh_website/one_meme.html',ctx)  # Write a new template to view your news.
