@@ -17,8 +17,8 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-
 from django_email_verification import urls as email_urls
+
 
 urlpatterns = [
 
@@ -29,3 +29,6 @@ urlpatterns = [
                   path('email/', include(email_urls)),  # verification user path
                   path('captcha/', include('captcha.urls')),  # Adding simple Captcha to page
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)  # Operation for images in meme section
+
+
+handler404 = 'ms_web.views.handle_not_found'
