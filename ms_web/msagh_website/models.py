@@ -17,9 +17,11 @@ class Spot(models.Model):
                              on_delete=models.SET_NULL
                              )
     content = models.CharField(max_length=1000)
+    likes = models.ManyToManyField(User,related_name='spot_likes')
 
     def __str__(self):
         return f"{self.title[:10]} - {self.content[:10]}"
+
 
 
 class Meme(models.Model):

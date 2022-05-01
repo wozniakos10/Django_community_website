@@ -30,6 +30,29 @@ def base(request):
 
 
 def spotted(request):
+    #Handling with like form
+    if request.method == 'POST':
+        if request.user.is_authenticated:
+            # Grabbing post pk from form value
+            pk = request.POST.get('like_form')
+            # Grabbing single post
+            single_spot = Spot.objects.all().filter(admin_aproved=True).get(pk=pk)
+            # Checking if post was already liked
+            if single_spot.likes.filter(pk=request.user.pk).exists():
+                messages.warning(request, 'Już zareagowałeś na ten post!')
+
+            else:
+                #Adding like if post was not liked before
+                single_spot.likes.add(request.user)
+                # Grabing current pagination page
+                act_page = request.GET.get('page')
+                #Redirecting to particular pagination page
+                url = reverse('msagh_website:spotted')
+                url += f'?page={act_page}'
+                return redirect(url)
+        else:
+            messages.warning(request, 'Musisz się zalogować aby zareagować na post!')
+
     # look only for approved posts and order them by publication date
     posts_list = Spot.objects.all().filter(admin_aproved=True).order_by('-pub_date')
 
@@ -38,15 +61,17 @@ def spotted(request):
     page = request.GET.get('page')
     posts = p.get_page(page)
 
-    # list of numbers of comments for every spot:
+    # list of numbers of comments and likes for every spot:
     numbers = []
+    likes = []
     for post in posts:
         comments = CommentSpot.objects.all().filter(spot=post)
         numbers.append(len(comments))
+        likes.append(post.likes.count())
     # number of last page to show ( ... ) in html of spotted in paginator
     last_page = p.get_page(-1).number
 
-    numbers_posts = zip(numbers, posts)  # zip to iterate into django template
+    numbers_posts = zip(numbers, posts,likes)  # zip to iterate into django template
     return render(request, 'msagh_website/spotted.html', {'posts': posts,
                                                           "numbers_posts": numbers_posts,
                                                           "last_page": last_page})
@@ -157,18 +182,34 @@ def one_spot(request, pk):
         return redirect(reverse('msagh_website:spotted'))
 
     if request.method == 'POST':
+
         if request.user.is_authenticated:
-            # create a form instance and populate it with data from the request:
-            form = CommentSpotForm(request.POST)
-            # check whether it's valid:
-            if form.is_valid():
-                obj = form.save(commit=False)
-                obj.user = request.user
-                obj.spot = single_spot
-                obj.save()
-                return redirect(reverse('msagh_website:one_spot', args=(pk,)))
+            #Checking which form was sent. Here Like form
+            if request.POST.get('like_form') == 'like_form':
+                #initalizing comment_form in order to avoid error
+                form = CommentSpotForm(request.POST)
+               #Checking if post was already liked
+                if single_spot.likes.filter(pk=request.user.pk).exists():
+                    messages.warning(request, 'Już zareagowałeś na ten post!')
+                else:
+                    # Adding like if post was not liked before
+                    single_spot.likes.add(request.user)
+                    return redirect(reverse('msagh_website:one_spot', args=(pk,)))
+
+            #Comment form
+            else:
+                # create a form instance and populate it with data from the request:
+                form = CommentSpotForm(request.POST)
+                # check whether it's valid:
+                if form.is_valid():
+                    obj = form.save(commit=False)
+                    obj.user = request.user
+                    obj.spot = single_spot
+
+                    obj.save()
+                    return redirect(reverse('msagh_website:one_spot', args=(pk,)))
         else:
-            messages.warning(request, 'Musisz się zalogować aby dodać komentarz!')
+            messages.warning(request, 'Musisz się zalogować aby wykonać tą akcję!')
             return redirect(reverse('msagh_website:one_spot', args=(pk,)))
     else:
 
@@ -176,11 +217,14 @@ def one_spot(request, pk):
 
     comments = CommentSpot.objects.all().filter(spot=single_spot)
     no_comments = len(comments)
+    no_like = single_spot.likes.count()
+
     ctx = {
         'single_spot': single_spot,
         'form': form,
         'comments': comments,
         "no_comments": no_comments,
+        'no_like': no_like
     }
 
     return render(request, 'msagh_website/one_spot.html', context=ctx)  # Write a new template to view your news.
@@ -210,10 +254,13 @@ def one_meme(request, pk):
         form = CommentMemeForm()
 
     comments = CommentMeme.objects.all().filter(meme=single_meme)
+    no_comments = len(comments)
     ctx = {
         'single_meme': single_meme,
         'form': form,
-        'comments': comments
+        'comments': comments,
+        'no_comments': no_comments
+
     }
 
     return render(request, 'msagh_website/one_meme.html',ctx)  # Write a new template to view your news.

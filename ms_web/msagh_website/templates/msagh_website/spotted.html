@@ -15,6 +15,11 @@
 
 
 }
+  {#remove focus around buttons on click#}
+  .btn:focus {
+  outline: none;
+  box-shadow: none;
+}
 
 </style>
 
@@ -38,7 +43,7 @@
             </div>
           </div>
 
-    {% for number, post in numbers_posts %}
+    {% for number, post, like in numbers_posts %}
         {% if post.admin_aproved %}
     <div class="card row-hover pos-relative py-3 px-3 mb-3 border-warning border-top-3 border-right-3 border-bottom-3 rounded-10 width-4" align="left" border-="red" >
             <div class="row align-items-center">
@@ -55,6 +60,14 @@
               <div class="col-md-4 op-7">
                 <div class="row text-center op-7">
                   <div class="col px-1"> <i style="font-size:24px" class="fa">&#xf0e6;</i> <span class="d-block text-sm"> {{ number }} komentarzy</span> </div>
+
+                <form method="POST">
+                {% csrf_token %}
+
+            <input type="hidden" name="like_form", value={{ post.pk }}>
+            <button type="submit" class="btn btn-small"  ><i style="font-size: 24px; margin-right: -10px" class="fa fa-plus"></i></button>
+                    +{{ like }}
+        </form>
                 </div>
               </div>
             </div>

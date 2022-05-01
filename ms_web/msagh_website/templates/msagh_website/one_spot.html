@@ -35,6 +35,10 @@ width: 100%;
 
 padding: 1px;
 }
+  .btn:focus {
+  outline: none;
+  box-shadow: none;
+}
 
 
     button{
@@ -68,7 +72,8 @@ padding: 1px;
 
 <link href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet">
 <div class="container"  bgcolor=”#802003" align="center" >
-      <div>
+
+    <div>
 
         <div class="col-lg-9 mb-3" >
           <div class="row text-left mb-5">
@@ -93,10 +98,19 @@ padding: 1px;
               <div class="col-md-4 op-7">
                 <div class="row text-center op-7">
                   <div class="col px-1"> <i style="font-size:24px" class="fa">&#xf0e6;</i> <span class="d-block text-sm"> {{ no_comments }} komentarzy</span> </div>
+                    <form method="POST">
+                {% csrf_token %}
+            <input type="hidden" name="like_form", value="like_form">
+            <button type="submit" class="btn btn-small" ><i style="font-size: 24px; margin-right: -10px" class="fa fa-plus"></i></button>
+                        +{{ no_like }}
+        </form>
+
+
 
                 </div>
               </div>
             </div>
+
 
 
 
@@ -116,6 +130,7 @@ padding: 1px;
       </div>
 
   </form>
+
 
 <!--  TODO: Display all comments      <-->
 <h2 style="margin: 20px">Ostatnie komentarze</h2>
