@@ -3,9 +3,11 @@ backports.zoneinfo==0.2.1
 cffi==1.15.0
 cryptography==36.0.2
 Django==4.0.3
+django-blacklist==0.6.1
 django-crispy-forms==1.14.0
 django-email-verification==0.2.2
 django-ranged-response==0.2.0
+django-ratelimit==3.0.1
 django-simple-captcha==0.5.17
 Pillow==9.0.1
 pycparser==2.21
