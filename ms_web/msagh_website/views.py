@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, reverse
 from django.contrib.auth.decorators import login_required
-from .forms import SpotForm, MemeForm, CommentSpotForm,CommentMemeForm
-from .models import Spot, Meme, CommentSpot,CommentMeme
+from .forms import SpotForm, MemeForm, CommentSpotForm, CommentMemeForm
+from .models import Spot, Meme, CommentSpot, CommentMeme
 from django.core.paginator import Paginator
 from django.core.mail import send_mail, BadHeaderError
 from django.http import HttpResponse
@@ -14,6 +14,10 @@ from django.contrib.auth.tokens import default_token_generator
 from django.utils.encoding import force_bytes
 from django.contrib import messages  # import messages
 from ms_web.settings import EMAIL_FROM_ADDRESS
+
+from datetime import timedelta
+from ratelimit.decorators import ratelimit
+from blacklist.ratelimit import blacklist_ratelimited
 
 
 # Create your views here.
@@ -30,7 +34,7 @@ def base(request):
 
 
 def spotted(request):
-    #Handling with like form
+    # Handling with like form
     if request.method == 'POST':
         if request.user.is_authenticated:
             # Grabbing post pk from form value
@@ -42,11 +46,11 @@ def spotted(request):
                 messages.warning(request, 'Już zareagowałeś na ten post!')
 
             else:
-                #Adding like if post was not liked before
+                # Adding like if post was not liked before
                 single_spot.likes.add(request.user)
                 # Grabing current pagination page
                 act_page = request.GET.get('page')
-                #Redirecting to particular pagination page
+                # Redirecting to particular pagination page
                 url = reverse('msagh_website:spotted')
                 url += f'?page={act_page}'
                 return redirect(url)
@@ -71,12 +75,15 @@ def spotted(request):
     # number of last page to show ( ... ) in html of spotted in paginator
     last_page = p.get_page(-1).number
 
-    numbers_posts = zip(numbers, posts,likes)  # zip to iterate into django template
+    numbers_posts = zip(numbers, posts, likes)  # zip to iterate into django template
     return render(request, 'msagh_website/spotted.html', {'posts': posts,
                                                           "numbers_posts": numbers_posts,
                                                           "last_page": last_page})
 
-
+# If user send more than 50 requests/h block him for 3 hours
+# code below need two packages ratelimit and blacklist
+@ratelimit(key='user', rate='50/h', block=False)
+@blacklist_ratelimited(timedelta(minutes=180))
 @login_required(login_url='/login')
 def new_spot(request):
     if request.method == 'POST':
@@ -119,6 +126,9 @@ def memes(request):
                                                         })
 
 
+# if user send more than 50 request/hour block him for 8 hours
+@ratelimit(key='user', rate='50/h', block=False)
+@blacklist_ratelimited(timedelta(minutes=480))
 @login_required(login_url='/login')
 def new_meme(request):
     if request.method == 'POST':
@@ -175,6 +185,8 @@ def password_reset_request(request):
                   context={"password_reset_form": password_reset_form})
 
 
+@ratelimit(key='user', rate='60/h', block=False)
+@blacklist_ratelimited(timedelta(minutes=480))
 def one_spot(request, pk):
     try:
         single_spot = Spot.objects.all().filter(admin_aproved=True).order_by('pub_date').get(pk=pk)
@@ -184,11 +196,11 @@ def one_spot(request, pk):
     if request.method == 'POST':
 
         if request.user.is_authenticated:
-            #Checking which form was sent. Here Like form
+            # Checking which form was sent. Here Like form
             if request.POST.get('like_form') == 'like_form':
-                #initalizing comment_form in order to avoid error
+                # initalizing comment_form in order to avoid error
                 form = CommentSpotForm(request.POST)
-               #Checking if post was already liked
+                # Checking if post was already liked
                 if single_spot.likes.filter(pk=request.user.pk).exists():
                     messages.warning(request, 'Już zareagowałeś na ten post!')
                 else:
@@ -196,7 +208,7 @@ def one_spot(request, pk):
                     single_spot.likes.add(request.user)
                     return redirect(reverse('msagh_website:one_spot', args=(pk,)))
 
-            #Comment form
+            # Comment form
             else:
                 # create a form instance and populate it with data from the request:
                 form = CommentSpotForm(request.POST)
@@ -229,6 +241,9 @@ def one_spot(request, pk):
 
     return render(request, 'msagh_website/one_spot.html', context=ctx)  # Write a new template to view your news.
 
+
+@ratelimit(key='user', rate='10/m', block=False)
+@blacklist_ratelimited(timedelta(minutes=2))
 def one_meme(request, pk):
     try:
         single_meme = Meme.objects.all().filter(admin_aproved=True).order_by('pub_date').get(pk=pk)
@@ -263,4 +278,4 @@ def one_meme(request, pk):
 
     }
 
-    return render(request, 'msagh_website/one_meme.html',ctx)  # Write a new template to view your news.
+    return render(request, 'msagh_website/one_meme.html', ctx)  # Write a new template to view your news.

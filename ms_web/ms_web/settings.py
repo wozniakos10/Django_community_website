@@ -45,6 +45,8 @@ INSTALLED_APPS = [
     "captcha",  # Simple captcha to page
     'django_email_verification',
 
+    'blacklist'
+
 ]
 
 MIDDLEWARE = [
@@ -53,6 +55,7 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'blacklist.middleware.BlacklistMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
@@ -177,3 +180,6 @@ MESSAGE_TAGS = {
         messages.WARNING: 'alert-warning',
         messages.ERROR: 'alert-danger',
  }
+
+BLACKLIST_TEMPLATE = 'banned_user.html' # template for banned user
+BLACKLIST_RELOAD_PERIOD = 10  #[seconds] to reload blacklist
