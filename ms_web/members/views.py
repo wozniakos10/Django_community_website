@@ -13,6 +13,9 @@ from django.views.decorators.csrf import csrf_exempt
 from datetime import timedelta
 from ratelimit.decorators import ratelimit
 from blacklist.ratelimit import blacklist_ratelimited
+from .models  import Profile
+from django.contrib.auth.models import User
+
 
 # Create your views here.
 
@@ -47,5 +50,15 @@ def logoutUser(request):
     return render(request, 'members/logout.html')
 
 @login_required(login_url='/login')
-def profile(request):
-    return render(request, 'members/profile.html')
+def profile(request,pk):
+    user = User.objects.get(pk=pk)
+    single_profile = Profile.objects.all().filter(user=user)
+
+    context = {
+        'single_profile': single_profile,
+        'user': user
+    }
+
+    return render(request, 'members/profile.html', context)
+
+

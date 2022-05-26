@@ -279,3 +279,5 @@ def one_meme(request, pk):
     }
 
     return render(request, 'msagh_website/one_meme.html', ctx)  # Write a new template to view your news.
+
+

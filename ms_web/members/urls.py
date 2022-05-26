@@ -6,5 +6,5 @@ app_name = "members"
 urlpatterns = [
     path('',views.register,name='register'),
     path('logout/',views.logoutUser,name='logout'),
-    path('profile/', views.profile, name='profile')
+    path('profile/<int:pk>',views.profile, name='profile'),
 ]

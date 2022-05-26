@@ -15,7 +15,8 @@ urlpatterns = [
     path('contact/', views.contact, name="contact"),
     path("password_reset/", views.password_reset_request, name="password_reset"),
     path('password_change/',auth_views.PasswordChangeView.as_view(template_name = "password/password_change.html",
-                                                                  success_url="http://127.0.0.1:8000/"),name='password_change'),
+                                                              success_url="http://127.0.0.1:8000/"),name='password_change'),
+
 
     path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(
         template_name="password/password_reset_confirm.html"), name='password_reset_confirm'),
