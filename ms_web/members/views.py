@@ -51,12 +51,16 @@ def logoutUser(request):
 
 @login_required(login_url='/login')
 def profile(request,pk):
-    user = User.objects.get(pk=pk)
-    single_profile = Profile.objects.all().filter(user=user)
+    user_profile = User.objects.get(pk=pk)
 
+    # TODO: number of comments
+    #comments = Comme
+    # TODO: number of spots:
+    # spots = Spot.
+    #points = compute_point(comments, spots, user_profile.date_joined)
+    
     context = {
-        'single_profile': single_profile,
-        'user': user
+        'user_profile': user_profile
     }
 
     return render(request, 'members/profile.html', context)

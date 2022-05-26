@@ -53,8 +53,13 @@
                    <a href="{% url 'msagh_website:one_spot' post.pk %}">{{ post.title }}</a>
                   </div>
                 </h5>
+                  {% if post.user %}
                 <p class="text-sm"><span class="op-6">Dodane</span> {{ post.pub_date }}</a> przez <a href="{% url 'members:profile' post.user.pk %}"> {{ post.user }}</a> </p>
                 <h8>{{ post.content }}</h8>
+                  {% else %}
+                  <p class="text-sm"><span class="op-6">Dodane</span> {{ post.pub_date }}</a> przez Użytkownik usunięty </p>
+                <h8>{{ post.content }}</h8>
+                  {% endif %}
 
               </div>
               <div class="col-md-4 op-7">
