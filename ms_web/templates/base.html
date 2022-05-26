@@ -58,6 +58,11 @@ background-image: url({% static 'msagh_website/images/background_image.jpg' %});
         </li>
 
       </ul>
+        <div>
+                            {% if user.is_authenticated %}
+        <a href="{% url 'members:profile' %}" class="btn btn-dark" role="button"> <i class='fas fa-user-alt' style='font-size:18px'></i>  {{ user.username }}</a>
+        {% endif %}
+        </div>
 
         {% if user.is_authenticated %}
         <a href="{% url 'members:logout' %}" class="btn btn-dark" role="button">Wyloguj</a>

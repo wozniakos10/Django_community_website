@@ -3,7 +3,7 @@ from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from .forms import RegisterForm
 from django.contrib.auth import logout
-
+from django.contrib.auth.decorators import login_required
 
 from django.contrib.auth import get_user_model
 from django_email_verification import send_email
@@ -45,3 +45,7 @@ def register(response):
 def logoutUser(request):
     logout(request)
     return render(request, 'members/logout.html')
+
+@login_required(login_url='/login')
+def profile(request):
+    return render(request, 'members/profile.html')
