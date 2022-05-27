@@ -51,20 +51,34 @@ class RegisterForm(UserCreationForm):
         fields = ["username", "email", "password1", "password2"]
 
 class UpdateProfileForm(forms.ModelForm):
-    name = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control', 'rows': 5}))
-    surname = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control', 'rows': 5}))
-    phone = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control', 'rows': 5}))
-    bio = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control', 'rows': 5}))
-    github_url = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control', 'rows': 5}))
-    contact_url = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control', 'rows': 5}))
-
-
 
     class Meta:
         model = Profile
         fields = ['name','surname','phone','bio','github_url','contact_url','country']
 
+        labels = {
+            'name': 'Imię',
+            'surname': 'Nazwisko',
+            'phone': 'Numer telefonu',
+            'bio': 'Biogram',
+            'github_url': 'Github',
+            'contact_url': 'Kontakt',
+            'country':'Kraj pochodzenia'
+        }
+
         widgets = {'country' : CountrySelectWidget(attrs={'class': 'form-select',
                                                           'style': 'width:auto',
                                                           'blank_label': ''},
-        layout='{widget}<img alt="" class="country-select-flag"  id="{flag_id}" style="margin: 10px 4px 0" src="{country.flag}">' )}
+        layout='{widget}<img alt="" class="country-select-flag"  id="{flag_id}" style="margin: 10px 4px 0" src="{country.flag}">' ),
+                   'name': forms.Textarea(attrs={'class': 'form-control', 'rows': 5}),
+                   'surname': forms.Textarea(attrs={'class': 'form-control', 'rows': 5}),
+                   'phone': forms.Textarea(attrs={'class': 'form-control', 'rows': 5}),
+                   'bio':   forms.Textarea(attrs={'class': 'form-control', 'rows': 5}),
+                   'github_url': forms.Textarea(attrs={'class': 'form-control', 'rows': 5}),
+                   'contact_url': forms.Textarea(attrs={'class': 'form-control', 'rows': 5})
+
+
+
+
+
+                   }

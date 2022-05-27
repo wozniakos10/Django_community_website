@@ -148,14 +148,14 @@
                   <hr>
                   <div class="row">
                     <div class="col-sm-3">
-                      <h6 class="mb-0">Kraj</h6>
+                      <h6 class="mb-0">Kraj pochodzenia</h6>
                     </div>
                     <div class="col-sm-9 text-secondary">
 
 
                     {{ user_profile.profile.country.name }}
 {#                        path to flag#}
-                    <img alt="" src="http://127.0.0.1:8000{{ user_profile.profile.country.flag}}">
+                    <img alt="" src="{{ request.scheme }}://{{ request.get_host }}{{ user_profile.profile.country.flag}}">
 
 
 
