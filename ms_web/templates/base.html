@@ -91,7 +91,7 @@ background-image: url({% static 'msagh_website/images/background_image.jpg' %});
 
       <p class="pb-3 mb-0  lh-sm ">
         {% if first_post.user != None %}
-          <strong class="d-block text-gray-dark">{{first_post.user}}</strong>
+          <strong class="d-block text-gray-dark"><a href="{% url 'members:profile' first_post.user.pk %}" style="text-decoration: none; color: #423a3a">{{first_post.user}}</a></strong>
         {% else %}
           <strong class="d-block text-gray-dark"> Użytkownik usunięty </strong>
         {% endif %}
@@ -103,7 +103,7 @@ background-image: url({% static 'msagh_website/images/background_image.jpg' %});
 
       <p class="pb-3 mb-0  lh-sm ">
         {% if second_post.user != None %}
-          <strong class="d-block text-gray-dark">{{second_post.user}}</strong>
+          <strong class="d-block text-gray-dark"><a href="{% url 'members:profile' second_post.user.pk %}" style="text-decoration: none; color: #423a3a">{{second_post.user}}</a></strong>
         {% else %}
           <strong class="d-block text-gray-dark"> Użytkownik usunięty </strong>
         {% endif %}
@@ -115,7 +115,7 @@ background-image: url({% static 'msagh_website/images/background_image.jpg' %});
 
       <p class="pb-3 mb-0  lh-sm ">
         {% if third_post.user != None %}
-          <strong class="d-block text-gray-dark">{{third_post.user}}</strong>
+          <strong class="d-block text-gray-dark"><a href="{% url 'members:profile' third_post.user.pk %}" style="text-decoration: none; color: #423a3a" >{{third_post.user}}</a></strong>
         {% else %}
           <strong class="d-block text-gray-dark"> Użytkownik usunięty </strong>
         {% endif %}

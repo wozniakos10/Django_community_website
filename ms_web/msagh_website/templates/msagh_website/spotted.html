@@ -54,7 +54,7 @@
                   </div>
                 </h5>
                   {% if post.user %}
-                <p class="text-sm"><span class="op-6">Dodane</span> {{ post.pub_date }}</a> przez <a href="{% url 'members:profile' post.user.pk %}"> {{ post.user }}</a> </p>
+                      <p class="text-sm"><span class="op-6">Dodane</span> {{ post.pub_date }}</a> przez <a href="{% url 'members:profile' post.user.pk %}" style="text-decoration: none; color: #423a3a"> <b>{{ post.user }}</b></a> </p>
                 <h8>{{ post.content }}</h8>
                   {% else %}
                   <p class="text-sm"><span class="op-6">Dodane</span> {{ post.pub_date }}</a> przez Użytkownik usunięty </p>

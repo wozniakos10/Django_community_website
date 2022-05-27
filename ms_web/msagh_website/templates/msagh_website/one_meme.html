@@ -52,8 +52,14 @@ padding: 1px;
                     <h8>{{ single_meme.title }}</h8>
                   </div>
                 </h5>
-                <p class="text-sm"><span class="op-6">Dodane</span> {{ single_meme.pub_date }}</a> przez {{ single_meme.user }}</a></p>
 
+                  {% if single_meme.user %}
+
+                <p class="text-sm"><span class="op-6">Dodane</span> {{ single_meme.pub_date }} przez <a href="{% url 'members:profile' single_meme.user.pk %}" style="text-decoration: none; color: #423a3a"> <b>{{ single_meme.user }}</b></a> </p>
+                  {% else %}
+
+                  <p class="text-sm"><span class="op-6">Dodane</span> {{ single_meme.pub_date }} przez Użytkownik usunięty </p>
+                  {% endif %}
                     <img src='{{ single_meme.image.url }}' />
                   <div style="margin-top: 12px" class="col px-1"> <i style="font-size:24px" class="fa">&#xf0e6;</i> <span class="d-block text-sm"> {{ no_comments }} komentarzy</span> </div>
 
@@ -93,8 +99,15 @@ padding: 1px;
             </div>
             <div class="card p-3 border-0 bg-light ">
                 <div class="d-flex justify-content-between align-items-center">
-                    <div class="user d-flex flex-row align-items-center">  <span><small class="font-weight-bold text-dark"><h6>{{ comment.user }}</h6></small>  </div> <small>{{comment.pub_date}}</small></span>
 
+                    {% if comment.user %}
+                    <div class="user d-flex flex-row align-items-center">  <span><small class="font-weight-bold text-dark"><h6><a href="{% url 'members:profile' comment.user.pk %}" style="text-decoration: none; color: #423a3a"> {{ comment.user }}</a></h6></small>  </div> <small>{{comment.pub_date}}</small></span>
+
+                    {% else %}
+
+                    <div class="user d-flex flex-row align-items-center">  <span><small class="font-weight-bold text-dark"><h6 style="font-weight: normal">Użytkownik usunięty</h6></small>  </div> <small>{{comment.pub_date}}</small></span>
+
+                    {% endif %}
                 </div>
                 <hr size='3' style="margin-top: 1px; ">
 
