@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, reverse
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
-from .forms import RegisterForm
+from .forms import RegisterForm,UpdateProfileForm
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 
@@ -15,6 +15,7 @@ from ratelimit.decorators import ratelimit
 from blacklist.ratelimit import blacklist_ratelimited
 from .models  import Profile
 from django.contrib.auth.models import User
+from django.contrib import messages  # import messages
 
 
 # Create your views here.
@@ -64,5 +65,27 @@ def profile(request,pk):
     }
 
     return render(request, 'members/profile.html', context)
+
+#View to edit profile
+@login_required(login_url='/login')
+def edit_profile(request):
+    if request.method == 'POST':
+        #Getting form
+        profile_form = UpdateProfileForm(request.POST,instance=request.user.profile)
+
+        if profile_form.is_valid():
+            profile_form.save()
+            messages.success(request, 'Twój profil został zaaktualizowany!')
+            return redirect(reverse('members:profile', args=(request.user.pk,)))
+
+
+    else:
+        profile_form = UpdateProfileForm(instance=request.user.profile)
+
+    context = {
+        'profile_form': profile_form
+    }
+    return render(request, 'members/edit_profile.html', context)
+
 
 

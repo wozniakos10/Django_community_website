@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "crispy_forms",
     "captcha",  # Simple captcha to page
     'django_email_verification',
+    'django_countries',
 
     'blacklist'
 

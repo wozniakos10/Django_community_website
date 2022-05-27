@@ -60,6 +60,7 @@ background-image: url({% static 'msagh_website/images/background_image.jpg' %});
       </ul>
         <div>
                             {% if user.is_authenticated and request.user.profile is not None %}
+        <a href="{% url 'members:edit_profile' %}" class="btn btn-dark" role="button">Edytuj Profil</a>
         <a href="{% url 'members:profile' request.user.pk %}" class="btn btn-dark" role="button"> <i class='fas fa-user-alt' style='font-size:18px'></i>  {{ user.username }}</a>
         {% endif %}
         </div>

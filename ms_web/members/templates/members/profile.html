@@ -1,6 +1,13 @@
 {% extends "base.html"%}
 {%block content%}
+{#    TODO: MAKE LABEL RESIZABLE TO AVOID CRASH PAGE LIKE BARTOSZ TABISZ#}
+
+{% load static %}
+
 <style>
+    <link rel="stylesheet" href="{% static 'flags/sprite.css' %}">
+
+
 .card {
     box-shadow: 0 1px 3px 0 rgba(0,0,0,.1), 0 1px 2px 0 rgba(0,0,0,.06);
 }
@@ -46,7 +53,6 @@
     box-shadow: none!important;
 }
 </style>
-
 <div class="container">
     <div class="main-body">
 
@@ -83,11 +89,11 @@
                   </li>
                   <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                     <h6 class="mb-0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-github mr-2 icon-inline"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg> Github</h6>
-                    <span class="text-secondary">{{ user_profile.profile.bio }}</span>
+                    <span class="text-secondary">{{ user_profile.profile.github_url }}</span>
                   </li>
                   <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                     <h6 class="mb-0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-instagram mr-2 icon-inline text-danger"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg> Kontakt </h6>
-                    <span class="text-secondary">{{ user_profile.profile.contact_me }}</span>
+                    <span class="text-secondary">{{ user_profile.profile.contact_url }}</span>
                   </li>
                 </ul>
               </div>
@@ -100,7 +106,7 @@
                       <h6 class="mb-0">Punkty Użytkownika </h6>
                     </div>
                     <div class="col-sm-9 text-secondary">
-                      {{ user_profile.profile.name }}
+                      TODO
                     </div>
                   </div>
                   <hr>
@@ -109,7 +115,7 @@
                       <h6 class="mb-0">Posty użytkownika </h6>
                     </div>
                     <div class="col-sm-9 text-secondary">
-                      {{ user_profile.profile.surname }}
+                      TODO
                     </div>
                   </div>
                   <hr>
@@ -118,7 +124,7 @@
                       <h6 class="mb-0">Odpowiedzi użytkownika </h6>
                     </div>
                     <div class="col-sm-9 text-secondary">
-                      {{ user_profile.profile.country }}
+                      TODO
                     </div>
                   </div>
                   <hr>
@@ -127,7 +133,7 @@
                       <h6 class="mb-0">Imię</h6>
                     </div>
                     <div class="col-sm-9 text-secondary">
-                      {{ user_profile.profile.phone }}
+                      {{ user_profile.profile.name }}
                     </div>
                   </div>
                   <hr>
@@ -136,7 +142,7 @@
                       <h6 class="mb-0">Nazwisko</h6>
                     </div>
                     <div class="col-sm-9 text-secondary">
-                      {{ user_profile.profile.country }}
+                      {{ user_profile.profile.surname }}
                     </div>
                   </div>
                   <hr>
@@ -145,7 +151,14 @@
                       <h6 class="mb-0">Kraj</h6>
                     </div>
                     <div class="col-sm-9 text-secondary">
-                      {{ user_profile.profile.country }}
+
+
+                    {{ user_profile.profile.country.name }}
+{#                        path to flag#}
+                    <img alt="" src="http://127.0.0.1:8000{{ user_profile.profile.country.flag}}">
+
+
+
                     </div>
                   </div>
                   <hr>
@@ -154,7 +167,7 @@
                       <h6 class="mb-0">Telefon</h6>
                     </div>
                     <div class="col-sm-9 text-secondary">
-                      {{ user_profile.profile.country }}
+                      {{ user_profile.profile.phone }}
                     </div>
                   </div>
                   <hr>

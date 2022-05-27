@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{#    TODO: MAKE MESSAGE AFTER CHANGE PASSWORD AND MAKE FRONTEND PRETTY#}
+
+
+{% block content %}
+
+</div>
+
+{% load crispy_forms_tags %}
+
+    <div class="form-content">
+        <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+
+
+
+            <div class="form-row">
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label class="small mb-1">Imie:</label>
+                            {{ profile_form.name|as_crispy_field }}
+                        <label class="small mb-1">Nazwisko:</label>
+                            {{ profile_form.surname }}
+                    </div>
+                    <div class="form-group">
+                        <a href="http://127.0.0.1:8000/password_change/">Zmień hasło</a>
+                        <hr>
+                <label class="small mb-1">Telefon</label> {{ profile_form.phone|as_crispy_field }}
+
+                <label class="small mb-1">Bio:</label> {{ profile_form.bio|as_crispy_field }}
+
+                <label class="small mb-1">Github:</label> {{ profile_form.github_url|as_crispy_field }}
+
+                <label class="small mb-1">Kontakt:</label> {{ profile_form.contact_url|as_crispy_field }}
+
+
+
+
+                </div>
+
+
+                </div>
+                    <label class="small mb-1">Kraj:</label> {{ profile_form.country|as_crispy_field }}
+                </div>
+            </div>
+            <br><br>
+            <button type="submit" class="btn btn-dark btn-lg">Save Changes</button>
+            <button type="reset" class="btn btn-dark btn-lg">Reset</button>
+        </form>
+    </div>
+
+{% endblock content %}

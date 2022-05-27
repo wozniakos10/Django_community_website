@@ -4,6 +4,10 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, User
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 #from captcha.fields import  CaptchaField
+from .models import Profile
+from django_countries.fields import CountryField
+from django_countries.widgets import CountrySelectWidget
+from django_countries import countries
 
 
 class RegisterForm(UserCreationForm):
@@ -46,3 +50,21 @@ class RegisterForm(UserCreationForm):
         model = User
         fields = ["username", "email", "password1", "password2"]
 
+class UpdateProfileForm(forms.ModelForm):
+    name = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control', 'rows': 5}))
+    surname = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control', 'rows': 5}))
+    phone = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control', 'rows': 5}))
+    bio = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control', 'rows': 5}))
+    github_url = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control', 'rows': 5}))
+    contact_url = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control', 'rows': 5}))
+
+
+
+    class Meta:
+        model = Profile
+        fields = ['name','surname','phone','bio','github_url','contact_url','country']
+
+        widgets = {'country' : CountrySelectWidget(attrs={'class': 'form-select',
+                                                          'style': 'width:auto',
+                                                          'blank_label': ''},
+        layout='{widget}<img alt="" class="country-select-flag"  id="{flag_id}" style="margin: 10px 4px 0" src="{country.flag}">' )}
