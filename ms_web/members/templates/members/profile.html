@@ -71,8 +71,13 @@
                   <div class="d-flex flex-column align-items-center text-center">
                     <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150">
                     <div class="mt-3">
-                      <h4>{{ user_profile.username }}</h4>
-                      <p class="text-secondary mb-1">{{ user_profile.profile.bio }}</p>
+                        {% if user_profile.is_superuser %}
+                      <h4><span style='font-size:20px;'>&#9733;</span>{{ user_profile.username }}</h4>
+                        {% else %}
+                        <h4>{{ user_profile.username }}</h4>
+                        {% endif %}
+
+                        <p class="text-secondary mb-1">{{ user_profile.profile.bio }}</p>
                     </div>
                   </div>
                 </div>
@@ -106,7 +111,7 @@
                       <h6 class="mb-0">Punkty Użytkownika </h6>
                     </div>
                     <div class="col-sm-9 text-secondary">
-                      TODO
+                        {{ points }}
                     </div>
                   </div>
                   <hr>
@@ -115,7 +120,7 @@
                       <h6 class="mb-0">Posty użytkownika </h6>
                     </div>
                     <div class="col-sm-9 text-secondary">
-                      TODO
+                      {{ no_spots }}
                     </div>
                   </div>
                   <hr>
@@ -124,7 +129,7 @@
                       <h6 class="mb-0">Odpowiedzi użytkownika </h6>
                     </div>
                     <div class="col-sm-9 text-secondary">
-                      TODO
+                      {{ no_comments }}
                     </div>
                   </div>
                   <hr>
