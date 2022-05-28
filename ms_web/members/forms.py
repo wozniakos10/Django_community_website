@@ -50,7 +50,7 @@ class RegisterForm(UserCreationForm):
         fields = ["username", "email", "password1", "password2"]
 
 class UpdateProfileForm(forms.ModelForm):
-
+    country = CountryField(blank_label='Wybierz kraj',blank=True).formfield()
     class Meta:
         model = Profile
         fields = ['name','surname','phone','bio','github_url','contact_url','country']
@@ -65,6 +65,6 @@ class UpdateProfileForm(forms.ModelForm):
             'country':'Kraj pochodzenia'
         }
 
-        widgets = {
-             'country' : CountrySelectWidget(attrs={'class': 'form-select'}),
-                   }
+        # widgets = {
+        #     'country': CountrySelectWidget(attrs={'class': 'form-select'}),
+        # }

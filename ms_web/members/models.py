@@ -18,7 +18,7 @@ class Profile(models.Model):
 
     github_regex = RegexValidator(regex='^(http(s?):\/\/)?(www\.)?github\.([a-z])+\/([A-Za-z0-9]{1,})+\/?$',
                                   message="Podaj link do githuba!")
-    github_url = models.CharField(validators=[github_regex], max_length=200, blank=True, default='Brak informacji')
+    github_url = models.CharField(validators=[github_regex], max_length=200, blank=True)
     contact_url = models.CharField(max_length=200, blank=True, default='Brak informacji')
 
     bio = models.TextField(max_length=500, blank=True, default="Brak informacji")

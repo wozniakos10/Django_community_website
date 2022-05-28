@@ -86,6 +86,8 @@ def edit_profile(request):
 
     else:
         profile_form = UpdateProfileForm(instance=request.user.profile)
+        #Changing label of country field - default it was 'country'
+        profile_form['country'].label = 'Kraj pochodzenia'
 
     context = {
         'profile_form': profile_form,
