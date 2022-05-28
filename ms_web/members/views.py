@@ -88,6 +88,7 @@ def edit_profile(request):
         profile_form = UpdateProfileForm(instance=request.user.profile)
 
     context = {
-        'profile_form': profile_form
+        'profile_form': profile_form,
+        'user': request.user,
     }
     return render(request, 'members/edit_profile.html', context)

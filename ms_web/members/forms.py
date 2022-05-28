@@ -9,7 +9,6 @@ from django_countries.fields import CountryField
 from django_countries.widgets import CountrySelectWidget
 from django_countries import countries
 
-
 class RegisterForm(UserCreationForm):
     username = forms.CharField(label='Nazwa użytkownika',
         max_length=64,
@@ -66,19 +65,6 @@ class UpdateProfileForm(forms.ModelForm):
             'country':'Kraj pochodzenia'
         }
 
-        widgets = {'country' : CountrySelectWidget(attrs={'class': 'form-select',
-                                                          'style': 'width:auto',
-                                                          'blank_label': ''},
-        layout='{widget}<img alt="" class="country-select-flag"  id="{flag_id}" style="margin: 10px 4px 0" src="{country.flag}">' ),
-                   'name': forms.Textarea(attrs={'class': 'form-control', 'rows': 5}),
-                   'surname': forms.Textarea(attrs={'class': 'form-control', 'rows': 5}),
-                   'phone': forms.Textarea(attrs={'class': 'form-control', 'rows': 5}),
-                   'bio':   forms.Textarea(attrs={'class': 'form-control', 'rows': 5}),
-                   'github_url': forms.Textarea(attrs={'class': 'form-control', 'rows': 5}),
-                   'contact_url': forms.Textarea(attrs={'class': 'form-control', 'rows': 5})
-
-
-
-
-
+        widgets = {
+             'country' : CountrySelectWidget(attrs={'class': 'form-select'}),
                    }

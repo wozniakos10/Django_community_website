@@ -1,18 +1,30 @@
 {% extends "base.html" %}
-{#    TODO: MAKE MESSAGE AFTER CHANGE PASSWORD AND MAKE FRONTEND PRETTY#}
-
 
 {% block content %}
 <style>
 
-.asteriskField {
-    display: none;                      {#Deleting * from label#}
+.form-content{
+
+  width: 1500px;
+  padding: 10px;
 }
+
 </style>
 
-</div>
-
 {% load crispy_forms_tags %}
+<h1 class="mb-3" align="center">Edycja profilu użytkownika</h1>
+<div class="container rounded bg-white mt-5 mb-5">
+    <div class="row">
+        <div class="col-md-3 border-right">
+            <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"><span class="font-weight-bold">{{ user.username }}</span>
+                <br>
+                <a> Data dołączenia: </a>
+                <span class="text-black-50">{{ user.date_joined }}</span><span> </span>
+                <br>
+                <a> Ostatnie logowanie: </a>
+                <span class="text-black-50">{{ user.last_login }}</span></div>
+        </div>
+        <div class="col-md-5 border-right">
 
     <div class="form-content">
         <form method="post" enctype="multipart/form-data">
@@ -25,33 +37,36 @@
                     <div class="form-group">
 
                             {{ profile_form.name|as_crispy_field }}
+                        <br>
 
                             {{ profile_form.surname|as_crispy_field }}
                     </div>
+                    <br>
                     <div class="form-group">
                         <a href="http://127.0.0.1:8000/password_change/">Zmień hasło</a>
                         <hr>
-                {{ profile_form.phone|as_crispy_field }}
-
+                {{ profile_form.phone|as_crispy_field  }}
+                        <br>
                  {{ profile_form.bio|as_crispy_field }}
-
+                        <br>
                  {{ profile_form.github_url|as_crispy_field }}
+                        <br>
 
                  {{ profile_form.contact_url|as_crispy_field }}
+                        <br>
 
 
 
 
+
+
+                    {{ profile_form.country|as_crispy_field }}
                 </div>
-
-
-                </div>
-                     {{ profile_form.country|as_crispy_field }}
-                </div>
-            </div>
-            <br><br>
-            <button type="submit" class="btn btn-dark btn-lg">Save Changes</button>
+            <br>
+            <button type="submit" class="btn btn-dark btn-lg">Zapisz zmiany</button>
             <button type="reset" class="btn btn-dark btn-lg">Reset</button>
+            </div>
+            <br>
         </form>
     </div>
 
