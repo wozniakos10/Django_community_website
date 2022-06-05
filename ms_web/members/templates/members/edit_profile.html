@@ -48,7 +48,9 @@
                     </div>
                     <br>
                     <div class="form-group">
-                        <a href="http://127.0.0.1:8000/password_change/">Zmień hasło</a>
+                        <a href="{%url 'members:password_change' %}" class="btn btn-dark" role="button">Zmień hasło</a>
+
+
                         <hr>
                 {{ profile_form.phone|as_crispy_field  }}
                         <br>

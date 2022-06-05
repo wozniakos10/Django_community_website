@@ -13,7 +13,7 @@ class RegisterForm(UserCreationForm):
     username = forms.CharField(label='Nazwa użytkownika',
         max_length=64,
         widget=forms.TextInput(attrs={'style': 'max-width: 18em'}),
-        error_messages={'unique': "A user with that username address already exists."}
+        error_messages={'unique': "Konto z podaną nazwą użytkownika już istnieje!."}
     )
     email = forms.EmailField(
         max_length=64,

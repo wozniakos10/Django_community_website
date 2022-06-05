@@ -9,7 +9,7 @@ from django.contrib.auth import get_user_model
 from django_email_verification import send_email
 
 from django.views.decorators.csrf import csrf_exempt
-
+from django.contrib.auth.forms import PasswordChangeForm
 from datetime import timedelta
 from ratelimit.decorators import ratelimit
 from blacklist.ratelimit import blacklist_ratelimited
@@ -18,7 +18,8 @@ from msagh_website.models import Spot, CommentSpot
 from .utils import compute_user_points
 from django.contrib.auth.models import User
 from django.contrib import messages  # import messages
-
+#To not loged out after passwrod change
+from django.contrib.auth import update_session_auth_hash
 
 # Create your views here.
 
@@ -94,3 +95,25 @@ def edit_profile(request):
         'user': request.user,
     }
     return render(request, 'members/edit_profile.html', context)
+
+
+@login_required(login_url='/login')
+def password_change(request):
+
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            form.save()
+            #TO not logged out after password change
+            update_session_auth_hash(request, form.user)
+            messages.success(request, 'Twoje hasło zostało zaaktualizowane!')
+            return redirect(reverse('members:profile', args=(request.user.pk,)))
+
+    else:
+        form = PasswordChangeForm(user=request.user)
+
+    context = {
+        'form':form
+    }
+
+    return render(request, 'members/password_change.html', context)
