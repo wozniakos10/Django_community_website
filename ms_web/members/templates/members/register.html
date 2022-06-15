@@ -2,6 +2,16 @@
 
 {%block content%}
 <style>
+.text-center {                             {#Centering captcha field#}
+        text-align: center;
+    }
+
+    .g-recaptcha {
+        display: inline-block;
+        margin-top: 12px;
+    }
+
+
 .asteriskField {
     display: none;                      {#Deleting * from label#}
 }
@@ -36,6 +46,15 @@ padding: 8px;
     margin: 0 auto;
     border: 1px solid black;
 }
+
+#id_g-recaptcha-response{
+
+align-content: center;
+    align-self: center;
+}
+
+
+
 .form-text text-muted{
     color: white;
     background-color: white;
@@ -54,7 +73,18 @@ button{
 {% load crispy_forms_tags %}
 <form method="post" class = 'form-group'>
      {% csrf_token %}
-    {{form | crispy}}
+{#    {{form.username|as_crispy_field}}#}
+{##}
+{#    {{form.email|as_crispy_field}}#}
+{##}
+{#    {{form.password1|as_crispy_field}}#}
+{##}
+{#    {{form.password2|as_crispy_field}}#}
+    {{ form|crispy }}
+<div align="center" style="margin-bottom: 12px; margin-top: 16px">
+{#    {{form.captcha}}#}
+</div>
+
     <button type="submit" class="btn btn-primary btn-lg">Zarejestruj się</button>
 </form>
 </body>

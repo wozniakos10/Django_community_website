@@ -26,6 +26,7 @@ SECRET_KEY = 'django-insecure-_7jp$wiq%dl!i8b=$^y69o0rjc)t%ezwb_h-vx_@jnd*+^5ro*
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+#TODO change in deploy
 ALLOWED_HOSTS =  ['localhost', '127.0.0.1']
 
 
@@ -184,3 +185,9 @@ MESSAGE_TAGS = {
 
 BLACKLIST_TEMPLATE = 'banned_user.html' # template for banned user
 BLACKLIST_RELOAD_PERIOD = 10  #[seconds] to reload blacklist
+
+
+#TODO change in deploy and add to .env
+#Key for recaptcha(change durring deploy to proper)
+RECAPTCHA_PUBLIC_KEY = '6LdwknMgAAAAAMD-AyzB2aoJJU050Q0yWQ1rRKkq'
+RECAPTCHA_PRIVATE_KEY = '6LdwknMgAAAAAEKAvFfJuBOJ3kFgA6dmf-IPWszG'

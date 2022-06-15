@@ -27,7 +27,7 @@ urlpatterns = [
                   path('members/', include('members.urls')),
                   path('', include("django.contrib.auth.urls")),
                   path('email/', include(email_urls)),  # verification user path
-                  path('captcha/', include('captcha.urls')),  # Adding simple Captcha to page
+
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)  # Operation for images in meme section
 
 

@@ -3,7 +3,11 @@ from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, UsernameField
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
-#from captcha.fields import  CaptchaField
+from captcha.fields import ReCaptchaField
+from captcha.widgets import ReCaptchaV2Checkbox
+from captcha.widgets import ReCaptchaV2Invisible 
+
+
 from .models import Profile
 from django_countries.fields import CountryField
 from django_countries.widgets import CountrySelectWidget
@@ -36,8 +40,8 @@ class RegisterForm(UserCreationForm):
 
                                 )
 
-    #=git captcha =  CaptchaField()
-
+    captcha = ReCaptchaField(widget=ReCaptchaV2Checkbox(api_params={'hl': 'cl', 'onload': 'onLoadFunc'}), label='',
+                             error_messages={'required': ("Powyższe pole jest wymagane")})  # Rechaptcha
 
     def clean_email(self):
         email = self.cleaned_data['email']

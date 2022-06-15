@@ -17,11 +17,14 @@
 </style>
 
 {% load crispy_forms_tags %}
+    <br>
 <h1 class="mb-3" align="center">Edycja profilu użytkownika</h1>
 <div class="container rounded bg-white mt-5 mb-5">
     <div class="row">
         <div class="col-md-3 border-right">
-            <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"><span class="font-weight-bold">{{ user.username }}</span>
+            <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150">
+<br>
+                <span class="font-weight-bold">{{ user.username }}</span>
                 <br>
                 <a> Data dołączenia: </a>
                 <span class="text-black-50">{{ user.date_joined }}</span><span> </span>
@@ -40,9 +43,11 @@
             <div class="form-row">
                 <div class="col-md-5">
                     <div class="form-group">
-
+                            <br>
+                        <br>
                             {{ profile_form.name|as_crispy_field }}
                         <br>
+
 
                             {{ profile_form.surname|as_crispy_field }}
                     </div>
