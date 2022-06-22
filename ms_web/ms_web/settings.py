@@ -9,7 +9,9 @@ https://docs.djangoproject.com/en/4.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
+from dotenv import load_dotenv, find_dotenv
 
+load_dotenv(find_dotenv())
 from pathlib import Path
 import os
 from django.contrib.messages import constants as messages
@@ -21,13 +23,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-_7jp$wiq%dl!i8b=$^y69o0rjc)t%ezwb_h-vx_@jnd*+^5ro*'
+
+
+SECRET_KEY = os.environ.get("_secret_key")
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 #TODO change in deploy
-ALLOWED_HOSTS =  ['localhost', '127.0.0.1']
+ALLOWED_HOSTS =  ['localhost', '127.0.0.1','139.162.139.50']
 
 
 
@@ -125,13 +130,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR,'static/')
 
 """Defining components for image in meme section"""
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
-)
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
@@ -144,9 +148,7 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 # EMAIL VERIFICATION BELOW
 # need to add .env file in ms_web/ms_web/
-from dotenv import load_dotenv, find_dotenv
 
-load_dotenv(find_dotenv())
 
 
 def verified_callback(user):
@@ -189,5 +191,14 @@ BLACKLIST_RELOAD_PERIOD = 10  #[seconds] to reload blacklist
 
 #TODO change in deploy and add to .env
 #Key for recaptcha(change durring deploy to proper)
-RECAPTCHA_PUBLIC_KEY = '6LdwknMgAAAAAMD-AyzB2aoJJU050Q0yWQ1rRKkq'
-RECAPTCHA_PRIVATE_KEY = '6LdwknMgAAAAAEKAvFfJuBOJ3kFgA6dmf-IPWszG'
+
+
+RECAPTCHA_PUBLIC_KEY = os.environ.get("_recaptcha_public_key")
+RECAPTCHA_PRIVATE_KEY = os.environ.get("_recaptcha_private_key")
+
+SECURE_HSTS_SECONDS = 31536000
+SECURE_SSL_REDIRECT = True
+SESSION_COOKIE_SECURE = True
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD =  True
+CSRF_COOKIE_SECURE = True
