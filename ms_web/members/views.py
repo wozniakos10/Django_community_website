@@ -24,7 +24,7 @@ from django.contrib.auth import update_session_auth_hash
 # Create your views here.
 
 # if user or ip tried to send more 20 register request block him/it for 3 hour
-@ratelimit(key='user_or_ip', rate='20/h', block=False)
+@ratelimit(key='user_or_ip', rate='2000/h', block=False)
 @blacklist_ratelimited(timedelta(minutes=180))
 @csrf_exempt
 def register(response):
