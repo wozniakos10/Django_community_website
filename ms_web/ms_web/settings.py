@@ -1,3 +1,5 @@
+
+
 """
 Django settings for ms_web project.
 
@@ -32,8 +34,8 @@ SECRET_KEY = os.environ.get("_secret_key")
 DEBUG = False
 
 #TODO change in deploy
-ALLOWED_HOSTS =  ['localhost', '127.0.0.1','139.162.139.50']
-
+ALLOWED_HOSTS =  ['139.162.139.50','www.msspotted.pl','msspotted.pl']
+CSRF_TRUSTED_ORIGINS = ['https://*.msspotted.pl']
 
 
 # Application definition
@@ -47,10 +49,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    "whitenoise.runserver_nostatic",
     "crispy_forms",
     "captcha",  # Simple captcha to page
     'django_email_verification',
     'django_countries',
+#    'django_extensions',
 
     'blacklist'
 
@@ -58,6 +62,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    "whitenoise.middleware.WhiteNoiseMiddleware", #Handle with static
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -129,8 +134,21 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR,'static/')
+#Handle with static
+STATIC_URL = 'static/'
+
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+STATICFILES_FINDERS = [
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+]
+
+
+
 
 """Defining components for image in meme section"""
 MEDIA_URL = '/media/'
@@ -162,13 +180,13 @@ EMAIL_MAIL_HTML = 'mail_body.html'
 EMAIL_MAIL_PLAIN = 'mail_body.txt'
 EMAIL_TOKEN_LIFE = 60 * 60
 EMAIL_PAGE_TEMPLATE = 'confirm_template.html'
-EMAIL_PAGE_DOMAIN = 'http://127.0.0.1:8000/'
+EMAIL_PAGE_DOMAIN = 'https://msspotted.pl/'
 # EMAIL_MULTI_USER = True  # optional (defaults to False)
-EMAIL_USE_TLS = True
+EMAIL_USE_SSL = True
 
 # For Django Email Backend
 # Send to console not as a email:
-# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+#EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 EMAIL_HOST = os.environ.get("_email_host")
 EMAIL_PORT = os.environ.get("_email_port")
@@ -196,9 +214,11 @@ BLACKLIST_RELOAD_PERIOD = 10  #[seconds] to reload blacklist
 RECAPTCHA_PUBLIC_KEY = os.environ.get("_recaptcha_public_key")
 RECAPTCHA_PRIVATE_KEY = os.environ.get("_recaptcha_private_key")
 
-SECURE_HSTS_SECONDS = 31536000
-SECURE_SSL_REDIRECT = True
-SESSION_COOKIE_SECURE = True
-SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-SECURE_HSTS_PRELOAD =  True
-CSRF_COOKIE_SECURE = True
+# HTTPS setting
+#SECURE_HSTS_SECONDS = 31536000
+#SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+#SECURE_SSL_REDIRECT = True
+#SESSION_COOKIE_SECURE = True
+#SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+#SECURE_HSTS_PRELOAD =  True
+#CSRF_COOKIE_SECURE = True

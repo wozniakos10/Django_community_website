@@ -165,7 +165,7 @@ def password_reset_request(request):
             if associated_users.exists():
                 try:
                     # Trying send email with link to reset password by built function
-                    password_reset_form.save(domain_override='127.0.0.1:8000',
+                    password_reset_form.save(domain_override='139.162.139.50:8000',
                                              subject_template_name='password/password_reset_email.txt',
                                              html_email_template_name='password/password_reset_body.html',
                                              from_email=EMAIL_FROM_ADDRESS)
